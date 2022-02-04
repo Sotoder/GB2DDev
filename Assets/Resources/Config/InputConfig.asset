@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa7a20ac5b52bf4c949f5f479587bea, type: 3}
+  m_Name: InputConfig
+  m_EditorClassIdentifier: 
+  _selectedInputType: 0
+  _inputViewMatchings:
+  - _inputType: 0
+    _inputView: {fileID: 7515208572412037638, guid: cc43a0e52eea2f34ba9bb11afe7f4ced,
+      type: 3}
+  - _inputType: 1
+    _inputView: {fileID: 6373872419029225169, guid: f9d7e7e8daa0cce4990238c6718a412a,
+      type: 3}
+  - _inputType: 2
+    _inputView: {fileID: -3415051363395054372, guid: 10fe14e7e9934c741907c1087ec5c21f,
+      type: 3}
+  - _inputType: 3
+    _inputView: {fileID: -4228358969535183109, guid: 48532612ade964142b6b7b4ad7ef4faa,
+      type: 3}

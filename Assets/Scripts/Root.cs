@@ -5,6 +5,8 @@ public class Root : MonoBehaviour
 {
     [SerializeField] 
     private Transform _placeForUi;
+    [SerializeField] 
+    private InputConfig _inputConfig;
 
     private MainController _mainController;
 
@@ -12,7 +14,7 @@ public class Root : MonoBehaviour
     {
         var profilePlayer = new ProfilePlayer(15f);
         profilePlayer.CurrentState.Value = GameState.Start;
-        _mainController = new MainController(_placeForUi, profilePlayer);
+        _mainController = new MainController(_placeForUi, profilePlayer, _inputConfig);
     }
 
     protected void OnDestroy()

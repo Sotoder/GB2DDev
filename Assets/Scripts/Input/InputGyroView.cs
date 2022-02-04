@@ -2,11 +2,12 @@
 using Tools;
 using UnityEngine;
 
-public class InputAcceleration : BaseInputView
+public class InputGyroView : BaseInputView
 {
     public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
     {
         base.Init(leftMove, rightMove, speed);
+        Input.gyro.enabled = true;
         UpdateManager.SubscribeToUpdate(Move);
     }
 
@@ -17,14 +18,10 @@ public class InputAcceleration : BaseInputView
 
     private void Move()
     {
-        var direction = Vector3.zero; 
-        direction.x = -Input.acceleration.y;
-        direction.z = Input.acceleration.x;
-        
-        if (direction.sqrMagnitude > 1)
-            direction.Normalize();
-        
-        OnRightMove(direction.sqrMagnitude / 20 * _speed);
+        if (!SystemInfo.supportsGyroscope)
+            return;
+        var quaternion = Input.gyro.attitude;
+        quaternion.Normalize();
+        OnRightMove((quaternion.x + quaternion.y) * Time.deltaTime * _speed);
     }
 }
-

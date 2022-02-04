@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class MainController : BaseController
 {
-    public MainController(Transform placeForUi, ProfilePlayer profilePlayer)
+    public MainController(Transform placeForUi, ProfilePlayer profilePlayer, InputConfig inputConfig)
     {
         _profilePlayer = profilePlayer;
         _placeForUi = placeForUi;
+        _inputConfig = inputConfig;
         OnChangeGameState(_profilePlayer.CurrentState.Value);
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
     }
 
     private MainMenuController _mainMenuController;
     private GameController _gameController;
+    private readonly InputConfig _inputConfig;
     private readonly Transform _placeForUi;
     private readonly ProfilePlayer _profilePlayer;
 
@@ -33,7 +35,7 @@ public class MainController : BaseController
                 _gameController?.Dispose();
                 break;
             case GameState.Game:
-                _gameController = new GameController(_profilePlayer);
+                _gameController = new GameController(_profilePlayer, _inputConfig);
                 _mainMenuController?.Dispose();
                 break;
             default:
