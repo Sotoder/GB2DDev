@@ -48,5 +48,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c8f8b5f9a83724cab68297a7cc99dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trailRenderer: {fileID: 5916158937203628787, guid: 4f926dd3b3f291d49912647509f14f34,
+  _trailRendererPrototype: {fileID: 5916158937203628787, guid: 4f926dd3b3f291d49912647509f14f34,
     type: 3}

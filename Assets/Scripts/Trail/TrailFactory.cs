@@ -8,10 +8,12 @@ public class TrailFactory
     {
         _prototype = prototype;
     }
-    public TrailRenderer Create(Transform transform)
+    public ITrail Create(Transform transform)
     {
-        var trail = GameObject.Instantiate(_prototype, transform);
-        trail.gameObject.SetActive(false);
+        var trailRenderer = GameObject.Instantiate(_prototype, transform);
+        trailRenderer.gameObject.SetActive(false);
+
+        var trail = new Trail(trailRenderer);
 
         return trail;
     }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TrailView : MonoBehaviour
 {
-    [SerializeField] private TrailRenderer _trailRenderer;
+    [SerializeField] private TrailRenderer _trailRendererPrototype;
     private TrailPool _trailPool;
 
 
     public void Init()
     {
-        _trailPool = new TrailPool(_trailRenderer, this.transform);
+        _trailPool = new TrailPool(_trailRendererPrototype, this.transform);
         UpdateManager.SubscribeToUpdate(OnUpdate);
     }
 
@@ -43,23 +43,15 @@ public class TrailView : MonoBehaviour
     private void StartTouch(Touch touch)
     {
         var trail = _trailPool.GetFreeTrail(touch.fingerId);
-        trail.transform.position = GetWorldPosition(touch);
-        trail.emitting = true;
-        trail.gameObject.SetActive(true);
+        trail.TrailRenderer.transform.position = GetWorldPosition(touch);
+        trail.TrailRenderer.emitting = true;
+        trail.TrailRenderer.gameObject.SetActive(true);
     }
 
     private void TouchInProgress(Touch touch)
     {
         var trail = _trailPool.GetTrailByFinger(touch.fingerId);
-        
-        if(trail is null)
-        {
-            trail = _trailPool.GetFreeTrail(touch.fingerId);
-        }
-
-        trail.transform.position = GetWorldPosition(touch);
-        trail.emitting = true;
-        trail.gameObject.SetActive(true);
+        trail.TrailRenderer.transform.position = GetWorldPosition(touch);
     }
 
     private void ClearTouch(Touch touch)
