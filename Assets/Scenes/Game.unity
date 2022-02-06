@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _placeForUi: {fileID: 693758133}
+  _shopConfig: {fileID: 11400000, guid: 6f6297ec1ed734b4f80d1dfb5613da1d, type: 2}
   _ads: {fileID: 1002511162}
 --- !u!4 &1002511161
 Transform:

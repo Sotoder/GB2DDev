@@ -7,29 +7,29 @@ using UnityEngine.Purchasing.Security;
 
 namespace Model.Shop
 {
-    internal class ShopTools: IShop, IStoreListener
+    public class ShopTools: IShop, IStoreListener
     {
         private IStoreController _controller;
         private IExtensionProvider _extensionProvider;
         private bool _isInitialized;
 
-        private readonly SubscriptionAction _onSuccessPurchase;
+        private readonly SubscriptionAction<string> _onSuccessPurchase;
         private readonly SubscriptionAction _onFailedPurchase;
 
         public ShopTools(List<ShopProduct> products)
         {
-            _onSuccessPurchase = new SubscriptionAction();
+            _onSuccessPurchase = new SubscriptionAction<string>();
             _onFailedPurchase = new SubscriptionAction();
             ConfigurationBuilder builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
             foreach (ShopProduct product in products)
             {
-                builder.AddProduct(product.Id, product.CurrentProductType);
+                builder.AddProduct(product.ShopId, product.CurrentProductType);
             }
             UnityPurchasing.Initialize(this, builder);
         }
 
-        public IReadOnlySubscriptionAction OnSuccessPurchase => _onSuccessPurchase;
+        public IReadOnlySubscriptionAction<string> OnSuccessPurchase => _onSuccessPurchase;
         public IReadOnlySubscriptionAction OnFailedPurchase => _onFailedPurchase;
 
         public void Buy(string id)
@@ -46,28 +46,28 @@ namespace Model.Shop
 
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
         {
-            bool validPurchase = false;
-#if UNITY_ANDROID || UNITY_IOS
-            CrossPlatformValidator validator = new CrossPlatformValidator(GooglePlayTangle.Data(),
-                AppleTangle.Data(), Application.identifier);
-            try
-            {
-                IPurchaseReceipt[] result = validator.Validate(purchaseEvent.purchasedProduct.receipt);
-                validPurchase = true;
-                foreach (IPurchaseReceipt productReceipt in result)
-                {
-                    validPurchase &= productReceipt.purchaseDate == DateTime.UtcNow;
-                }
+            bool validPurchase = true;
+//#if UNITY_ANDROID || UNITY_IOS
+//            CrossPlatformValidator validator = new CrossPlatformValidator(GooglePlayTangle.Data(),
+//                AppleTangle.Data(), Application.identifier);
+//            try
+//            {
+//                IPurchaseReceipt[] result = validator.Validate(purchaseEvent.purchasedProduct.receipt);
+//                validPurchase = true;
+//                foreach (IPurchaseReceipt productReceipt in result)
+//                {
+//                    validPurchase &= productReceipt.purchaseDate == DateTime.UtcNow;
+//                }
 
-            }
-            catch (IAPSecurityException)
-            {
-                Debug.Log("Invalid receipt, not unlocking content");
-                validPurchase = false;
-            }
-#endif
+//            }
+//            catch (IAPSecurityException)
+//            {
+//                Debug.Log("Invalid receipt, not unlocking content");
+//                validPurchase = false;
+//            }
+//#endif
             if(validPurchase)
-                _onSuccessPurchase.Invoke();
+                _onSuccessPurchase.Invoke(purchaseEvent.purchasedProduct.definition.id);
             return PurchaseProcessingResult.Complete;
 
         }

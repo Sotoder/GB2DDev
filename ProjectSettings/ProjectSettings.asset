@@ -790,10 +790,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 7192b86c-514f-4a5c-923e-27a2e555aa4d
+  cloudProjectId: 81e3c029-de7e-4f18-88d6-92b9dce449b9
   framebufferDepthMemorylessMode: 0
-  projectName: racingGame (3)
-  organizationId: glongooo
+  projectName: SotegRacingGame
+  organizationId: soteg
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

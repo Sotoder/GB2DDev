@@ -6,7 +6,7 @@ namespace Model.Shop
         void Buy(string id);
         string GetCost(string productID);
         void RestorePurchase();
-        IReadOnlySubscriptionAction OnSuccessPurchase { get; }
+        IReadOnlySubscriptionAction<string> OnSuccessPurchase { get; }
         IReadOnlySubscriptionAction OnFailedPurchase { get; }
     }
 }
