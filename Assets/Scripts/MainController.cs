@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class MainController : BaseController
 {
-    public MainController(Transform placeForUi, ProfilePlayer profilePlayer, IAnalyticTools analyticsTools, IAdsShower ads)
+    public MainController(Transform placeForUi, ProfilePlayer profilePlayer, IAnalyticTools analyticsTools, IAdsShower ads, ShopProductsConfig shopConfig)
     {
         _profilePlayer = profilePlayer;
         _analyticsTools = analyticsTools;
         _ads = ads;
+        _shopConfig = shopConfig;
         _placeForUi = placeForUi;
         OnChangeGameState(_profilePlayer.CurrentState.Value);
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
@@ -21,6 +22,7 @@ public class MainController : BaseController
     private readonly ProfilePlayer _profilePlayer;
     private readonly IAnalyticTools _analyticsTools;
     private readonly IAdsShower _ads;
+    private readonly ShopProductsConfig _shopConfig;
 
     protected override void OnDispose()
     {
@@ -35,7 +37,7 @@ public class MainController : BaseController
         switch (state)
         {
             case GameState.Start:
-                _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer, _analyticsTools, _ads);
+                _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer, _analyticsTools, _ads, _shopConfig);
                 _gameController?.Dispose();
                 break;
             case GameState.Game:

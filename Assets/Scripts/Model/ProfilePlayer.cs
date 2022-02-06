@@ -7,10 +7,13 @@ public class ProfilePlayer
     {
         CurrentState = new SubscriptionProperty<GameState>();
         CurrentCar = new Car(speedCar);
+        CurentGold = new SubscriptionProperty<int>();
     }
 
     public SubscriptionProperty<GameState> CurrentState { get; }
 
     public Car CurrentCar { get; }
+
+    public SubscriptionProperty<int> CurentGold;
 }
 

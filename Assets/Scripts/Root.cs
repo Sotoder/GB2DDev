@@ -8,6 +8,9 @@ public class Root : MonoBehaviour
     [SerializeField] 
     private Transform _placeForUi;
 
+    [SerializeField]
+    private ShopProductsConfig _shopConfig;
+
     [SerializeField] private UnityAdsTools _ads;
 
     private MainController _mainController;
@@ -18,7 +21,7 @@ public class Root : MonoBehaviour
         var profilePlayer = new ProfilePlayer(15f);
         _analyticsTools = new UnityAnalyticTools();
         profilePlayer.CurrentState.Value = GameState.Start;
-        _mainController = new MainController(_placeForUi, profilePlayer, _analyticsTools, _ads);
+        _mainController = new MainController(_placeForUi, profilePlayer, _analyticsTools, _ads, _shopConfig);
     }
 
     protected void OnDestroy()
