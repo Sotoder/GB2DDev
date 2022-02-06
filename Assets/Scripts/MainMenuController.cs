@@ -30,6 +30,7 @@ public class MainMenuController : BaseController
     {
         var objectView = Object.Instantiate(ResourceLoader.LoadPrefab(_trailViewPath), placeForUi, false);
         AddGameObjects(objectView);
+        objectView.transform.SetParent(_view.transform);
 
         return objectView.GetComponent<TrailView>();
     }
