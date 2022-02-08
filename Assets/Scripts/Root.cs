@@ -1,4 +1,6 @@
-﻿using Model.Analytic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Model.Analytic;
 using Profile;
 using Tools.Ads;
 using UnityEngine;
@@ -9,16 +11,19 @@ public class Root : MonoBehaviour
     private Transform _placeForUi;
 
     [SerializeField] private UnityAdsTools _ads;
+    [SerializeField] private List<ItemConfig> _items;
+    [SerializeField] private UpgradeItemConfigDataSource _upgradeSource;
+    [SerializeField] private List<AbilityItemConfig> _abilityItems;
 
     private MainController _mainController;
     private IAnalyticTools _analyticsTools;
 
     private void Awake()
     {
-        var profilePlayer = new ProfilePlayer(15f);
         _analyticsTools = new UnityAnalyticTools();
+        var profilePlayer = new ProfilePlayer(15f, _ads, _analyticsTools);
+        _mainController = new MainController(_placeForUi, profilePlayer, _items, _upgradeSource.ItemConfigs.ToList(), _abilityItems.AsReadOnly());
         profilePlayer.CurrentState.Value = GameState.Start;
-        _mainController = new MainController(_placeForUi, profilePlayer, _analyticsTools, _ads);
     }
 
     protected void OnDestroy()

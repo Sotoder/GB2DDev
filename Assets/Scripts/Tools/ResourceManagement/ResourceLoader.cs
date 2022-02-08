@@ -6,4 +6,9 @@ public static class ResourceLoader
     {
         return Resources.Load<GameObject>(path.PathResource);
     }
+
+    public static T LoadObject<T>(ResourcePath path) where T:Object
+    {
+        return Resources.Load<T>(path.PathResource);
+    }
 } 

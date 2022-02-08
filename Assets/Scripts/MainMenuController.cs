@@ -1,26 +1,21 @@
 ﻿using System.Collections.Generic;
-using Model.Analytic;
 using Profile;
-using Tools.Ads;
 using UnityEngine;
+using UnityEngine.Advertisements;
 
 public class MainMenuController : BaseController
 {
     private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/mainMenu"};
     private readonly ProfilePlayer _profilePlayer;
-    private readonly IAnalyticTools _analytics;
-    private readonly IAdsShower _ads;
     private readonly MainMenuView _view;
 
-    public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer, IAnalyticTools analytics, IAdsShower ads)
+    public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
     {
         _profilePlayer = profilePlayer;
-        _analytics = analytics;
-        _ads = ads;
         _view = LoadView(placeForUi);
         _view.Init(StartGame);
     }
-
+    
     private MainMenuView LoadView(Transform placeForUi)
     {
         var objectView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath), placeForUi, false);
@@ -31,9 +26,11 @@ public class MainMenuController : BaseController
 
     private void StartGame()
     {
-        _analytics.SendMessage("Start", new Dictionary<string, object>());
-        _ads.ShowInterstitial();
         _profilePlayer.CurrentState.Value = GameState.Game;
-    }
+
+        _profilePlayer.AnalyticTools.SendMessage("start_game",
+            new Dictionary<string, object>() { {"time", Time.realtimeSinceStartup }
+    });
+}
 }
 
