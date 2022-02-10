@@ -1,18 +1,24 @@
 ﻿using Profile;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MainController : BaseController
 {
-    public MainController(Transform placeForUi, ProfilePlayer profilePlayer, 
-        List<ItemConfig> itemsConfig, IReadOnlyList<UpgradeItemConfig> upgradeItems,
+    public MainController(Transform placeForUi, ProfilePlayer profilePlayer,
+        IReadOnlyList<UpgradeItemConfig> upgradeItems,
         IReadOnlyList<AbilityItemConfig> abilityItems)
     {
         _profilePlayer = profilePlayer;
         _placeForUi = placeForUi;
-        _itemsConfig = itemsConfig;
+        
         _upgradeItems = upgradeItems;
         _abilityItems = abilityItems;
+
+        var itemsSource =
+            ResourceLoader.LoadDataSource<ItemConfig>(new ResourcePath()
+                { PathResource = "Data/ItemsSource" });
+        _itemsConfig = itemsSource.Content.ToList();
 
         OnChangeGameState(_profilePlayer.CurrentState.Value);
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
@@ -52,7 +58,7 @@ public class MainController : BaseController
                 var inventoryModel = new InventoryModel();
                 _inventoryController = new InventoryController(_itemsConfig, inventoryModel);
                 _inventoryController.ShowInventory();
-                _gameController = new GameController(_profilePlayer, _abilityItems, inventoryModel);
+                _gameController = new GameController(_profilePlayer, _abilityItems, inventoryModel, _placeForUi);
                 _mainMenuController?.Dispose();
                 break;
             default:

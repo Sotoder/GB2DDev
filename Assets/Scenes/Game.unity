@@ -420,11 +420,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _placeForUi: {fileID: 1903552}
   _ads: {fileID: 1980575211}
-  _items:
-  - {fileID: 11400000, guid: c8d3e74aaf2447344bd5a345943e75eb, type: 2}
-  - {fileID: 11400000, guid: 0c5580639060c894899a8e4e57c3731b, type: 2}
-  - {fileID: 11400000, guid: 14a3c984e69e6504f801302ed22526ac, type: 2}
-  - {fileID: 11400000, guid: de729d0e456a1184ebe59c595784ae54, type: 2}
   _upgradeSource: {fileID: 11400000, guid: 4b0ac3781b2cd5f40bb67ec9c9e1cd6b, type: 2}
   _abilityItems:
   - {fileID: 11400000, guid: 09a823ea2315b9a4dbdad15bed5f3fed, type: 2}

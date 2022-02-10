@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tools;
 using UnityEngine;
 
-public class AbilityRepository : BaseController, IAbilityRepository
+public class AbilityRepository : BaseController, IRepository<int, IAbility>
 {
-    public IReadOnlyDictionary<int, IAbility> AbilitiesMap { get => _abilitiesMap; }
+    public IReadOnlyDictionary<int, IAbility> Content { get => _abilitiesMap; }
 
     private Dictionary<int, IAbility> _abilitiesMap = new Dictionary<int, IAbility>();
 

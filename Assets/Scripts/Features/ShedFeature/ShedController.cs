@@ -29,7 +29,7 @@ public class ShedController : BaseController, IShedController
 
     public void Exit()
     {
-        UpgradeCarWithEquipedItems(_car, _model.GetEquippedItems(), _upgradeRepository.UpgradeItems);
+        UpgradeCarWithEquipedItems(_car, _model.GetEquippedItems(), _upgradeRepository.Content);
         Debug.Log($"Exit, car speed = {_car.Speed}");
     }
 

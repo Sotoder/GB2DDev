@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Tools;
 
 public class InventoryController : BaseController, IInventoryController
 {
     private readonly IInventoryModel _inventoryModel;
     private readonly IInventoryView _inventoryView;
-    private readonly IItemsRepository _itemsRepository;
+    private readonly IRepository<int, IItem> _itemsRepository;
 
     public InventoryController(List<ItemConfig> itemConfigs, InventoryModel inventoryModel)
     {
@@ -15,7 +16,7 @@ public class InventoryController : BaseController, IInventoryController
 
     public void ShowInventory()
     {
-        foreach (var item in _itemsRepository.Items.Values)
+        foreach (var item in _itemsRepository.Content.Values)
             _inventoryModel.EquipItem(item);
 
         var equippedItems = _inventoryModel.GetEquippedItems();

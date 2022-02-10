@@ -13,15 +13,13 @@ public class MainMenuController : BaseController
     {
         _profilePlayer = profilePlayer;
         _view = LoadView(placeForUi);
+        AddGameObjects(_view.gameObject);
         _view.Init(StartGame);
     }
     
     private MainMenuView LoadView(Transform placeForUi)
     {
-        var objectView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath), placeForUi, false);
-        AddGameObjects(objectView);
-        
-        return objectView.GetComponent<MainMenuView>();
+        return ResourceLoader.LoadAndInstantiateView<MainMenuView>(_viewPath, placeForUi);
     }
 
     private void StartGame()

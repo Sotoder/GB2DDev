@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tools;
 
-public class UpgradeHandlerRepository : BaseController
+public class UpgradeHandlerRepository : BaseController, IRepository<int, IUpgradeCarHandler>
 {
-    public IReadOnlyDictionary<int, IUpgradeCarHandler> UpgradeItems => _upgradeItems;
+    public IReadOnlyDictionary<int, IUpgradeCarHandler> Content => _content;
 
-    private Dictionary<int, IUpgradeCarHandler> _upgradeItems = new Dictionary<int, IUpgradeCarHandler>();
+    private Dictionary<int, IUpgradeCarHandler> _content = new Dictionary<int, IUpgradeCarHandler>();
 
     public UpgradeHandlerRepository(IReadOnlyList<UpgradeItemConfig> configs)
     {
-        PopulateItems(ref _upgradeItems, configs);
+        PopulateItems(ref _content, configs);
     }
 
     private void PopulateItems(ref Dictionary<int, IUpgradeCarHandler> upgradeItems, IReadOnlyList<UpgradeItemConfig> configs)
