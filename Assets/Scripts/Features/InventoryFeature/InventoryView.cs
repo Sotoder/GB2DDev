@@ -11,11 +11,13 @@ public class InventoryView : MonoBehaviour, IInventoryView
     [SerializeField] private Dropdown _tiresDropDown;
     [SerializeField] private Dropdown _windowDropDown;
     [SerializeField] private Button _saveButton;
+    [SerializeField] private Text _saveButtonText;
 
     public UnityAction<List<UpgradeItemConfig>> UpgradeSaved { get; set; }
 
     private IReadOnlyList<UpgradeItemConfig> _upgradeItems;
     private List<UpgradeItemConfig> _selectedUpgradeItems = new List<UpgradeItemConfig>();
+    private bool _isOnGameScene;
 
     public void Display(IReadOnlyList<IItem> items)
     {
@@ -55,11 +57,34 @@ public class InventoryView : MonoBehaviour, IInventoryView
 
     public void Show()
     {
+        if (_isOnGameScene)
+        {
+            SetDropdownInteractable(false);
+            _saveButtonText.text = "Exit";
+        } else
+        {
+            SetDropdownInteractable(true);
+            _saveButtonText.text = "Save & Exit";
+        }
+
         this.gameObject.SetActive(true);
+    }
+
+    private void SetDropdownInteractable(bool flag)
+    {
+        _transmissionDropDown.interactable = flag;
+        _tiresDropDown.interactable = flag;
+        _windowDropDown.interactable = flag;
     }
 
     public void SaveUpgrades()
     {
+        if (_isOnGameScene)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
+
         _selectedUpgradeItems.Clear();
         
         if (_transmissionDropDown.value != 0)
@@ -86,6 +111,11 @@ public class InventoryView : MonoBehaviour, IInventoryView
     {
         var item = _upgradeItems.FirstOrDefault(upgrade => upgrade.name == upgradeItemName);
         _selectedUpgradeItems.Add(item);
+    }
+
+    public void SetOnGameSceneFlag(bool isOnScene)
+    {
+        _isOnGameScene = isOnScene;
     }
 
     public void Hide()

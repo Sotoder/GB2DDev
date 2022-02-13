@@ -51,6 +51,11 @@ public class InventoryController : BaseController, IInventoryController
         _inventoryView.gameObject.transform.position = plasceForUi.position;
     }
 
+    public void SetOnGameSceneFlag(bool isOnScene)
+    {
+        _inventoryView.SetOnGameSceneFlag(isOnScene);
+    }
+
     public new void OnDispose()
     {
         _inventoryView.UpgradeSaved -= _inventoryModel.UpdateUpgradesList;

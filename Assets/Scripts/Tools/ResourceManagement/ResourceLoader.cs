@@ -20,6 +20,13 @@ public static class ResourceLoader
         return go.GetComponent<T>();
     }
 
+    public static T LoadAndInstantiateObject<T>(ResourcePath path, Transform uiRoot) where T : Object
+    {
+        var prefab = Resources.Load<GameObject>(path.PathResource);
+        var go = GameObject.Instantiate(prefab, uiRoot);
+        return go.GetComponent<T>();
+    }
+
     public static BaseDataSource<T> LoadDataSource<T>(ResourcePath path) where T : ScriptableObject
     {
         return Resources.Load<BaseDataSource<T>>(path.PathResource);

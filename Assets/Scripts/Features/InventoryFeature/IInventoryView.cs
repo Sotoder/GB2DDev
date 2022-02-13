@@ -8,5 +8,6 @@ public interface IInventoryView:IView
     void Init(IReadOnlyList<UpgradeItemConfig> upgradeItems);
     void Display(IReadOnlyList<IItem> items);
     UnityAction<List<UpgradeItemConfig>> UpgradeSaved { get; set; }
-    GameObject gameObject { get; } 
+    GameObject gameObject { get; }
+    void SetOnGameSceneFlag(bool isOnScene);
 }

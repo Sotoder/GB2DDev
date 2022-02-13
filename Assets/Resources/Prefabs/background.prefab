@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftBorder: -17.81
   _rightBorder: 17.81
-  _relativeSpeedRate: 1
+  _relativeSpeedRate: 0.5
 --- !u!1 &2568450156852823711
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftBorder: -17.7
   _rightBorder: 17.7
-  _relativeSpeedRate: 1
+  _relativeSpeedRate: 0.5
 --- !u!1 &3590461184429166328
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftBorder: -17.81
   _rightBorder: 17.81
-  _relativeSpeedRate: 1
+  _relativeSpeedRate: 0.5
 --- !u!1 &5625024096290961257
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,11 +49,14 @@ public class MainController : BaseController
         switch (state)
         {
             case GameState.Start:
+                _inventoryController.SetOnGameSceneFlag(false);
                 _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer, _itemsConfig, _upgradeItems, _inventoryController);
                 _gameController?.Dispose();
                 break;
             case GameState.Game:
-                _gameController = new GameController(_profilePlayer, _abilityItems, _inventoryController.Model, _placeForUi);
+                _inventoryController.SetInventoryViewPosition(_placeForUi);
+                _inventoryController.SetOnGameSceneFlag(true);
+                _gameController = new GameController(_profilePlayer, _abilityItems, _inventoryController, _placeForUi);
                 _mainMenuController?.Dispose();
                 break;
             default:

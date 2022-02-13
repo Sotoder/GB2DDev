@@ -1189,7 +1189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.022527428, y: 0.27800003}
   m_AnchorMax: {x: 0.41852745, y: 0.41300002}
-  m_AnchoredPosition: {x: -0.3999939, y: 0.19997597}
+  m_AnchoredPosition: {x: -0.3999939, y: 0.19997406}
   m_SizeDelta: {x: 0, y: -1.4163666}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8088733791825688059
@@ -3314,6 +3314,7 @@ MonoBehaviour:
   _tiresDropDown: {fileID: 1162933143022106202}
   _windowDropDown: {fileID: 4952388709779214450}
   _saveButton: {fileID: 2335366888210151001}
+  _saveButtonText: {fileID: 675988683477495844}
 --- !u!1 &8550162965686226893
 GameObject:
   m_ObjectHideFlags: 0
