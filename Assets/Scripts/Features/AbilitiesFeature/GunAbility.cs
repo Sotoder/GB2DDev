@@ -19,7 +19,7 @@ public class GunAbility : IAbility
 
     public void Apply(IAbilityActivator activator)
     {
-        var projectile = Object.Instantiate(_viewPrefab);
-        projectile.AddForce(activator.GetViewObject().transform.right * _projectileSpeed, ForceMode2D.Force);
+        var projectile = Object.Instantiate(_viewPrefab, activator.GetViewObject().transform);
+        projectile.AddForce(activator.GetViewObject().transform.right * _projectileSpeed, ForceMode2D.Impulse);
     }
 }

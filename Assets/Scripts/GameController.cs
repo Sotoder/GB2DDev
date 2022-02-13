@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameController : BaseController
 {
-    public GameController(ProfilePlayer profilePlayer, IReadOnlyList<AbilityItemConfig> configs, InventoryModel inventoryModel, Transform uiRoot)
+    public GameController(ProfilePlayer profilePlayer, IReadOnlyList<AbilityItemConfig> configs, IInventoryModel inventoryModel, Transform uiRoot)
     {
         var leftMoveDiff = new SubscriptionProperty<float>();
         var rightMoveDiff = new SubscriptionProperty<float>();

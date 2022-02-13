@@ -8,6 +8,8 @@ namespace Features.AbilitiesFeature
     {
         [SerializeField]
         private Button _button;
+        [SerializeField]
+        private Text _buttonText;
 
         public event Action<IItem> OnClick;
 
@@ -28,6 +30,10 @@ namespace Features.AbilitiesFeature
             OnClick?.Invoke(_item);
         }
 
+        public void SetText(string text)
+        {
+            _buttonText.text = text;
+        }
         private void OnDestroy()
         {
             OnClick = null;
