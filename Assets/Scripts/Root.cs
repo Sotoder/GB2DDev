@@ -9,7 +9,7 @@ public class Root : MonoBehaviour
 {
     [SerializeField] 
     private Transform _placeForUi;
-    [SerializeField] private int _carBaseSpeed;
+    [SerializeField] private float _carBaseSpeed;
 
     [SerializeField] private UnityAdsTools _ads;
     [SerializeField] private UpgradeItemConfigDataSource _upgradeSource;

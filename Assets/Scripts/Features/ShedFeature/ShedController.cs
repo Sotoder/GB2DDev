@@ -17,11 +17,12 @@ public class ShedController : BaseController, IShedController
         _inventoryController = inventoryController;
         _inventoryController.SetInventoryViewPosition(placeForUI);
         _model = _inventoryController.Model;
-        _inventoryController.CloseInventory += Exit;
+        _inventoryController.CloseAndSaveInventory += Exit;
     }
 
     public void Enter()
     {
+        _inventoryController.DisplayEquippedItems();
         _inventoryController.ShowInventory();
         _car.Restore();
         Debug.Log($"Enter, car speed = {_car.Speed}");
@@ -47,7 +48,7 @@ public class ShedController : BaseController, IShedController
 
     public new void OnDispose()
     {
-        _inventoryController.CloseInventory -= Exit;
+        _inventoryController.CloseAndSaveInventory -= Exit;
         base.OnDispose();
     }
 }

@@ -81,7 +81,7 @@ public class InventoryView : MonoBehaviour, IInventoryView
     {
         if (_isOnGameScene)
         {
-            this.gameObject.SetActive(false);
+            Hide();
             return;
         }
 
@@ -89,25 +89,25 @@ public class InventoryView : MonoBehaviour, IInventoryView
         
         if (_transmissionDropDown.value != 0)
         {
-            AddSelectedUpdate(_transmissionDropDown.options[_transmissionDropDown.value].text);
+            AddSelectedUpgrade(_transmissionDropDown.options[_transmissionDropDown.value].text);
         }
 
         if (_tiresDropDown.value != 0)
         {
-            AddSelectedUpdate(_tiresDropDown.options[_tiresDropDown.value].text);
+            AddSelectedUpgrade(_tiresDropDown.options[_tiresDropDown.value].text);
         }
 
         if (_windowDropDown.value != 0)
         {
-            AddSelectedUpdate(_windowDropDown.options[_windowDropDown.value].text);
+            AddSelectedUpgrade(_windowDropDown.options[_windowDropDown.value].text);
         }
 
         UpgradeSaved?.Invoke(_selectedUpgradeItems);
 
-        this.gameObject.SetActive(false);
+        Hide();
     }
 
-    private void AddSelectedUpdate(string upgradeItemName)
+    private void AddSelectedUpgrade(string upgradeItemName)
     {
         var item = _upgradeItems.FirstOrDefault(upgrade => upgrade.name == upgradeItemName);
         _selectedUpgradeItems.Add(item);

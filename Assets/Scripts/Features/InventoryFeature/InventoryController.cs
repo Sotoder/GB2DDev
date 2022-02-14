@@ -11,7 +11,7 @@ public class InventoryController : BaseController, IInventoryController
     private readonly IInventoryView _inventoryView;
     private readonly IRepository<int, IItem> _itemsRepository;
 
-    public UnityAction CloseInventory;
+    public UnityAction CloseAndSaveInventory;
     public IInventoryModel Model => _inventoryModel;
 
     public InventoryController(List<ItemConfig> itemConfigs, IReadOnlyList<UpgradeItemConfig> upgradeItems, Transform placeForUi)
@@ -35,13 +35,17 @@ public class InventoryController : BaseController, IInventoryController
 
     private void InvetoryClosed(List<UpgradeItemConfig> upgradesList)
     {
-        CloseInventory?.Invoke();
+        CloseAndSaveInventory?.Invoke();
     }
 
     public void ShowInventory()
     {
-        var equippedItems = _inventoryModel.GetEquippedItems();
         _inventoryView.Show();
+    }
+
+    public void DisplayEquippedItems()
+    {
+        var equippedItems = _inventoryModel.GetEquippedItems();
         _inventoryView.Display(equippedItems);
     }
 
