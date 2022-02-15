@@ -1,5 +1,6 @@
 ﻿public enum AbilityType
 {
-    None, 
-    Gun
+    None = 0, 
+    Gun = 1,
+    Speed = 2
 }

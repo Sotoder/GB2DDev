@@ -8,5 +8,7 @@ public class AbilityItemConfig : ScriptableObject
     public GameObject View;
     public AbilityType Type;
     public float value;
+    public float duration;
+    public float cooldown;
     public int Id => Item.Id;
 }

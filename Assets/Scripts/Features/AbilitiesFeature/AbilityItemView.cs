@@ -15,6 +15,8 @@ namespace Features.AbilitiesFeature
 
         private IItem _item;
 
+        public IItem Item { get => _item; }
+
         public void Init(IItem item)
         {
             _item = item;
@@ -33,6 +35,11 @@ namespace Features.AbilitiesFeature
         public void SetText(string text)
         {
             _buttonText.text = text;
+        }
+
+        public void SetInteractableState(bool isOnCooldown)
+        {
+            _button.interactable = !isOnCooldown;
         }
         private void OnDestroy()
         {

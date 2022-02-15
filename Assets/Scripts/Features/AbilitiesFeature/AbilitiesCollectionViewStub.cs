@@ -6,6 +6,9 @@ namespace Features.AbilitiesFeature
 {
     public class AbilitiesCollectionViewStub : IAbilityCollectionView
     {
+        private List<AbilityItemView> _currentViews = new List<AbilityItemView>();
+        public List<AbilityItemView> AbilityViews => _currentViews;
+
         public event EventHandler<IItem> UseRequested;
         public void Display(IReadOnlyList<IItem> abilityItems)
         {
