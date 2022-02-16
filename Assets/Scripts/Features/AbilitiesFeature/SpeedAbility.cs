@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpeedAbility : IAbility
 {
     private readonly AbilityItemConfig _config;
-    private readonly SpeedAbilityCangeHandler _handler;
+    private readonly SpeedAbilityChangeHandler _handler;
     private readonly Car _car;
     private GameObject _rocket;
 
@@ -16,7 +16,7 @@ public class SpeedAbility : IAbility
         AbilityItemConfig abilityItemConfig,
         Car car)
     {
-        _handler = new SpeedAbilityCangeHandler(abilityItemConfig);
+        _handler = new SpeedAbilityChangeHandler(abilityItemConfig);
         _car = car;
         _config = abilityItemConfig;
         IsOnCooldown = new SubscriptionPropertyWithClassInfo<bool, IAbility>(this);

@@ -1,8 +1,8 @@
-﻿internal class SpeedAbilityCangeHandler
+﻿internal class SpeedAbilityChangeHandler
 {
     private AbilityItemConfig _config;
 
-    public SpeedAbilityCangeHandler(AbilityItemConfig abilityItemConfig)
+    public SpeedAbilityChangeHandler(AbilityItemConfig abilityItemConfig)
     {
         _config = abilityItemConfig;
     }
