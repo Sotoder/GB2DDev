@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3885464851c97db408f275d635ae1eca, type: 3}
-  m_Name: MountainTransimision
+  m_Script: {fileID: 11500000, guid: e1e3240f3e02b9846a3534e986860192, type: 3}
+  m_Name: Tire
   m_EditorClassIdentifier: 
-  _itemConfig: {fileID: 0}
-  _upgradeType: 0
-  _valueUpgrade: 0
+  _id: 1
+  _title: Tire
+  _itemType: 1

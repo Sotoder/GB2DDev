@@ -10,14 +10,15 @@ public class UpgradeHandlerRepository : BaseController, IRepository<int, IUpgrad
 
     public UpgradeHandlerRepository(IReadOnlyList<UpgradeItemConfig> configs)
     {
-        PopulateItems(ref _content, configs);
+        _content = new Dictionary<int, IUpgradeCarHandler>();
     }
 
-    private void PopulateItems(ref Dictionary<int, IUpgradeCarHandler> upgradeItems, IReadOnlyList<UpgradeItemConfig> configs)
+    public void EquipUpgradeItems(IReadOnlyList<UpgradeItemConfig> configs)
     {
+        _content.Clear();
         foreach (var config in configs)
         {
-            upgradeItems[config.Id] = CreateHandler(config);
+            _content[config.Id] = CreateHandler(config);
         }
     }
 

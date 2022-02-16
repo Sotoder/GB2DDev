@@ -33,7 +33,7 @@ public class ItemsRepository : BaseController, IRepository<int, IItem>
         return new Item 
         { 
             Id = itemConfig.Id, 
-            Info = new ItemInfo { Title = itemConfig.Title } 
+            Info = new ItemInfo { Title = itemConfig.Title, ItemType = itemConfig.ItemType }      
         };
     }
 }

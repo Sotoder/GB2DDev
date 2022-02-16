@@ -9,6 +9,7 @@ public class Root : MonoBehaviour
 {
     [SerializeField] 
     private Transform _placeForUi;
+    [SerializeField] private float _carBaseSpeed;
 
     [SerializeField] private UnityAdsTools _ads;
     [SerializeField] private UpgradeItemConfigDataSource _upgradeSource;
@@ -20,7 +21,7 @@ public class Root : MonoBehaviour
     private void Awake()
     {
         _analyticsTools = new UnityAnalyticTools();
-        var profilePlayer = new ProfilePlayer(15f, _ads, _analyticsTools);
+        var profilePlayer = new ProfilePlayer(_carBaseSpeed, _ads, _analyticsTools);
         _mainController = new MainController(_placeForUi, profilePlayer, _upgradeSource.ItemConfigs.ToList(), _abilityItems.AsReadOnly());
         profilePlayer.CurrentState.Value = GameState.Start;
     }

@@ -4,8 +4,10 @@ using UnityEngine;
 public class TapeBackgroundController : BaseController
 {
     public TapeBackgroundController(IReadOnlySubscriptionProperty<float> leftMove, 
-        IReadOnlySubscriptionProperty<float> rightMove)
+        IReadOnlySubscriptionProperty<float> rightMove,
+        Car currentCar)
     {
+        _currentCar = currentCar;
         _view = LoadView();
         _diff = new SubscriptionProperty<float>();
         
@@ -23,6 +25,7 @@ public class TapeBackgroundController : BaseController
     private readonly SubscriptionProperty<float> _diff;
     private readonly IReadOnlySubscriptionProperty<float> _leftMove;
     private readonly IReadOnlySubscriptionProperty<float> _rightMove;
+    private readonly Car _currentCar;
 
     protected override void OnDispose()
     {
@@ -42,7 +45,7 @@ public class TapeBackgroundController : BaseController
 
     private void Move(float value)
     {
-        _diff.Value = value;
+        _diff.Value = value + _currentCar.Speed;
     }
 }
 
