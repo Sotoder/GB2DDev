@@ -1,4 +1,4 @@
-﻿internal class SpeedAbilityChangeHandler
+﻿public class SpeedAbilityChangeHandler
 {
     private AbilityItemConfig _config;
 
