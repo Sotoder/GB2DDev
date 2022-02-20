@@ -14,6 +14,7 @@ namespace Features.AbilitiesFeature
         [SerializeField] private AbilityItemView _viewPrefab;
 
         private List<AbilityItemView> _currentViews = new List<AbilityItemView>();
+        public List<AbilityItemView> AbilityViews => _currentViews;
 
         public void Show()
         {
@@ -35,6 +36,7 @@ namespace Features.AbilitiesFeature
                     view.Init(ability);
                     view.OnClick += OnRequested;
                     view.SetText(ability.Info.Title);
+                    _currentViews.Add(view);
                 }
             }
         }

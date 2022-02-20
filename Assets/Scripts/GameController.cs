@@ -28,7 +28,7 @@ public class GameController : BaseController
         _inventoryButton = ResourceLoader.LoadAndInstantiateObject<Button>(new ResourcePath() { PathResource = "Prefabs/InventoryButton" }, uiRoot);
         _inventoryButton.onClick.AddListener(OpenInventory);
 
-        var abilityRepository = new AbilityRepository(configs);
+        var abilityRepository = new AbilityRepository(configs, profilePlayer);
         var abilityView =
             ResourceLoader.LoadAndInstantiateView<AbilitiesView>(
                 new ResourcePath() { PathResource = "Prefabs/AbilitiesView" }, uiRoot);

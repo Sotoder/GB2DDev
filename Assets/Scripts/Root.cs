@@ -24,6 +24,7 @@ public class Root : MonoBehaviour
         var profilePlayer = new ProfilePlayer(_carBaseSpeed, _ads, _analyticsTools);
         _mainController = new MainController(_placeForUi, profilePlayer, _upgradeSource.ItemConfigs.ToList(), _abilityItems.AsReadOnly());
         profilePlayer.CurrentState.Value = GameState.Start;
+        var timerController = new TimerController();
     }
 
     protected void OnDestroy()

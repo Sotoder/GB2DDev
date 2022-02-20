@@ -1,25 +1,39 @@
 ﻿using System;
-using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Tools;
 
 public class GunAbility : IAbility
 {
+    private readonly AbilityItemConfig _config;
     private readonly Rigidbody2D _viewPrefab;
-    private readonly float _projectileSpeed;
+    public SubscriptionPropertyWithClassInfo<bool, IAbility> IsOnCooldown { get; }
+
+    public AbilityItemConfig Config => _config;
 
     public GunAbility(
-        [NotNull] GameObject viewPrefab,
-        float projectileSpeed)
+        AbilityItemConfig abilityItemConfig)
     {
-        _viewPrefab = viewPrefab.GetComponent<Rigidbody2D>();
+        _config = abilityItemConfig;
+        _viewPrefab = abilityItemConfig.View.GetComponent<Rigidbody2D>();
         if (_viewPrefab == null) throw new InvalidOperationException($"{nameof(GunAbility)} view requires {nameof(Rigidbody2D)} component!");
-        _projectileSpeed = projectileSpeed;
+        IsOnCooldown = new SubscriptionPropertyWithClassInfo<bool, IAbility>(this);
     }
 
     public void Apply(IAbilityActivator activator)
     {
-        var projectile = Object.Instantiate(_viewPrefab, activator.GetViewObject().transform);
-        projectile.AddForce(activator.GetViewObject().transform.right * _projectileSpeed, ForceMode2D.Impulse);
+        IsOnCooldown.Value = true;
+        var projectile = Object.Instantiate(_viewPrefab);
+        projectile.AddForce(activator.GetViewObject().transform.right * _config.value, ForceMode2D.Impulse);
+
+        var cooldownTimer = new Timer(_config.cooldown);
+        cooldownTimer.TimerIsOver += EndCooldown;
+        TimersList.AddTimer(cooldownTimer);
+    }
+
+    private void EndCooldown(Timer timer)
+    {
+        IsOnCooldown.Value = false;
+        timer.TimerIsOver -= EndCooldown;
     }
 }
