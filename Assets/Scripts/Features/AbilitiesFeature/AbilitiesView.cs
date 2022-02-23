@@ -26,16 +26,16 @@ namespace Features.AbilitiesFeature
             _canvasGroup.alpha = 0;
         }
 
-        public void Display(IReadOnlyList<IItem> abilityItems)
+        public void Display(IReadOnlyList<IItem> abilityItems, IAbilityRepository<int, IAbility> abilityRepository)
         {
-            foreach (var ability in abilityItems)
+            foreach (var abilityItem in abilityItems)
             {
-                if (ability.ItemType == ItemTypes.AbilityItem)
+                if(abilityRepository.Content.ContainsKey(abilityItem.Id))
                 {
                     var view = Instantiate<AbilityItemView>(_viewPrefab, _layout);
-                    view.Init(ability);
+                    view.Init(abilityItem);
                     view.OnClick += OnRequested;
-                    view.SetText(ability.Info.Title);
+                    view.SetText(abilityItem.Info.Title);
                     _currentViews.Add(view);
                 }
             }

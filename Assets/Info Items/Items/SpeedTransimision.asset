@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemConfig: {fileID: 11400000, guid: 14a3c984e69e6504f801302ed22526ac, type: 2}
   _upgradeType: 1
-  _valueUpgrade: 2
+  _valueUpgrade: 0.5

@@ -10,7 +10,7 @@ namespace Features.AbilitiesFeature
         public List<AbilityItemView> AbilityViews => _currentViews;
 
         public event EventHandler<IItem> UseRequested;
-        public void Display(IReadOnlyList<IItem> abilityItems)
+        public void Display(IReadOnlyList<IItem> abilityItems, IAbilityRepository<int, IAbility> abilityRepository)
         {
             foreach (var item in abilityItems)
             {
