@@ -2,6 +2,7 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Tools;
+using DG.Tweening;
 
 public class GunAbility : IAbility
 {
@@ -25,6 +26,7 @@ public class GunAbility : IAbility
         IsOnCooldown.Value = true;
         var projectile = Object.Instantiate(_viewPrefab);
         projectile.AddForce(activator.GetViewObject().transform.right * _config.value, ForceMode2D.Impulse);
+        var seq = DOTween.Sequence().AppendInterval(5).OnComplete(() => Object.Destroy(projectile.gameObject));
 
         var cooldownTimer = new Timer(_config.cooldown);
         cooldownTimer.TimerIsOver += EndCooldown;

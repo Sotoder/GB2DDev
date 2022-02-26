@@ -36,6 +36,7 @@ public class MainMenuView : MonoBehaviour, IView
         if(!_isGameStarted)
         {
             _isGameStarted = true;
+            _buttonInventory.gameObject.SetActive(false);
             _startButtonScaleTween = _buttonStart.transform.DOScale(Vector3.one * 20, 1f)
                 .OnComplete(() =>
                 {
