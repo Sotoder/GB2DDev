@@ -16,5 +16,5 @@ MonoBehaviour:
   View: {fileID: 4053592497838757858, guid: 44eb27282cac35e4bbc56d3fd9cc795e, type: 3}
   Type: 1
   value: 20
-  duration: 0
+  duration: 5
   cooldown: 1
