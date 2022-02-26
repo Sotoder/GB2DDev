@@ -1,4 +1,4 @@
-﻿using System;
+﻿using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,6 +18,14 @@ public class InventoryView : MonoBehaviour, IInventoryView
     private IReadOnlyList<UpgradeItemConfig> _upgradeItems;
     private List<UpgradeItemConfig> _selectedUpgradeItems = new List<UpgradeItemConfig>();
     private bool _isOnGameScene;
+    private Tween _scaleTween;
+    private Tween _rotationTween;
+    private Sequence _seq;
+
+    private void Start()
+    {
+        this.transform.localScale = Vector3.zero;
+    }
 
     public void Display(IReadOnlyList<IItem> items)
     {
@@ -67,7 +75,17 @@ public class InventoryView : MonoBehaviour, IInventoryView
             _saveButtonText.text = "Save & Exit";
         }
 
-        this.gameObject.SetActive(true);
+        _scaleTween?.Complete(true);
+        _rotationTween?.Complete(true);
+        _seq?.Complete(true);
+
+        _scaleTween = transform.DOScale(Vector3.one, 0.5f);
+        _rotationTween = transform.DOPunchRotation(new Vector3(0, 0, 360), 0.5f);
+
+        _seq = DOTween.Sequence();
+        _seq.Append(_scaleTween.OnComplete(() => _scaleTween = null));
+        _seq.Join(_rotationTween.OnComplete(() => _rotationTween = null));
+        _seq.OnComplete(() => _seq = null);
     }
 
     private void SetDropdownInteractable(bool flag)
@@ -120,7 +138,17 @@ public class InventoryView : MonoBehaviour, IInventoryView
 
     public void Hide()
     {
-        this.gameObject.SetActive(false);
+        _scaleTween?.Complete(true);
+        _rotationTween?.Complete(true);
+        _seq?.Complete(true);
+
+        _scaleTween = transform.DOScale(Vector3.zero, 0.5f);
+        _rotationTween = transform.DOPunchRotation(new Vector3(0, 0, -360), 0.5f);
+
+        _seq = DOTween.Sequence();
+        _seq.Append(_scaleTween.OnComplete(() => _scaleTween = null));
+        _seq.Join(_rotationTween.OnComplete(() => _rotationTween = null));
+        _seq.OnComplete(() => _seq = null);
     }
 
     public void OnDestroy()

@@ -37,6 +37,8 @@ public class AbilityRepository : BaseController, IAbilityRepository<int, IAbilit
                 return new GunAbility(config);
             case AbilityType.Speed:
                 return new SpeedAbility(config, _profilePlayer.CurrentCar);
+            case AbilityType.Jump:
+                return new JumpAbility(config);
             default:
                 throw new ArgumentOutOfRangeException();
         }

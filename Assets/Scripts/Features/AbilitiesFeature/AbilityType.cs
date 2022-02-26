@@ -2,5 +2,6 @@
 {
     None = 0, 
     Gun = 1,
-    Speed = 2
+    Speed = 2,
+    Jump = 3
 }

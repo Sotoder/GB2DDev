@@ -5,9 +5,9 @@ using UnityStandardAssets.CrossPlatformInput;
 
 internal class InputJoystickView : BaseInputView
 {
-    public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
+    public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, SubscriptionProperty<bool> isStay, float speed)
     {
-        base.Init(leftMove, rightMove, speed);
+        base.Init(leftMove, rightMove, isStay, speed);
         UpdateManager.SubscribeToUpdate(Move);
     }
 
@@ -23,5 +23,7 @@ internal class InputJoystickView : BaseInputView
             OnRightMove(moveStep);
         else if (moveStep < 0)
             OnLeftMove(moveStep);
+        else if (moveStep == 0)
+            OnStay();
     }
 }

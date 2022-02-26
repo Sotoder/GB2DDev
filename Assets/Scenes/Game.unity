@@ -425,6 +425,7 @@ MonoBehaviour:
   _abilityItems:
   - {fileID: 11400000, guid: 09a823ea2315b9a4dbdad15bed5f3fed, type: 2}
   - {fileID: 11400000, guid: 9295cc52fc33245488cdb9dba0198a05, type: 2}
+  - {fileID: 11400000, guid: 55d535ce39b1bad42a030076a4a729d4, type: 2}
 --- !u!114 &1980575211
 MonoBehaviour:
   m_ObjectHideFlags: 0

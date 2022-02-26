@@ -21,9 +21,9 @@ public class FloatInputJoystick : BaseInputView, IPointerDownHandler, IPointerUp
 
     #region Methods
 
-    public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
+    public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, SubscriptionProperty<bool> isStay, float speed)
     {
-        base.Init(leftMove, rightMove, speed);
+        base.Init(leftMove, rightMove, isStay, speed);
         _defaultPosition = transform.position;
         _joystickView.SetActive(false);
         Debug.Log($"On Init:{_joystickView.activeSelf}");

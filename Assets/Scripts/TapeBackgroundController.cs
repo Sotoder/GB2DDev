@@ -45,6 +45,9 @@ public class TapeBackgroundController : BaseController
 
     private void Move(float value)
     {
+        if (value < 0)
+        _diff.Value = value - _currentCar.Speed;
+        else
         _diff.Value = value + _currentCar.Speed;
     }
 }

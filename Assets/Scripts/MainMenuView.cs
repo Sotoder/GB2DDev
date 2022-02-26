@@ -1,4 +1,6 @@
-﻿using UI;
+﻿using DG.Tweening;
+using System;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -9,10 +11,39 @@ public class MainMenuView : MonoBehaviour, IView
     [SerializeField] private Button _buttonStart;
     [SerializeField] private Button _buttonInventory;
 
+    private UnityAction _startGame;
+    private UnityAction _showInventory;
+
+    private Tween _startButtonScaleTween;
+    private bool _isGameStarted = false;
+
     public void Init(UnityAction startGame, UnityAction showInventory)
     {
-        _buttonStart.onClick.AddListener(startGame);
-        _buttonInventory.onClick.AddListener(showInventory);
+        _startGame = startGame;
+        _showInventory = showInventory;
+
+        _buttonStart.onClick.AddListener(StartGameButtonPressed);
+        _buttonInventory.onClick.AddListener(InventoryButtonPressed);
+    }
+
+    private void InventoryButtonPressed()
+    {
+        _showInventory.Invoke();
+    }
+
+    private void StartGameButtonPressed()
+    {
+        if(!_isGameStarted)
+        {
+            _isGameStarted = true;
+            _startButtonScaleTween = _buttonStart.transform.DOScale(Vector3.one * 20, 1f)
+                .OnComplete(() =>
+                {
+                    _startGame.Invoke();
+                    _startButtonScaleTween = null;
+                });
+        }
+
     }
 
     protected void OnDestroy()

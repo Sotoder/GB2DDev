@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class InputAcceleration : BaseInputView
 {
-    public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
+    public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, SubscriptionProperty<bool> isStay, float speed)
     {
-        base.Init(leftMove, rightMove, speed);
+        base.Init(leftMove, rightMove, isStay, speed);
         UpdateManager.SubscribeToUpdate(Move);
     }
 

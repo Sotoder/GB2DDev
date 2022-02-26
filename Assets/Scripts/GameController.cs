@@ -15,14 +15,15 @@ public class GameController : BaseController
 
         var leftMoveDiff = new SubscriptionProperty<float>();
         var rightMoveDiff = new SubscriptionProperty<float>();
+        var isStay = new SubscriptionProperty<bool>();
         
         var tapeBackgroundController = new TapeBackgroundController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentCar);
         AddController(tapeBackgroundController);
         
-        var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentCar);
+        var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, isStay, profilePlayer.CurrentCar);
         AddController(inputGameController);
             
-        var carController = new CarController();
+        var carController = new CarController(leftMoveDiff, rightMoveDiff, isStay);
         AddController(carController);
 
         _inventoryButton = ResourceLoader.LoadAndInstantiateObject<Button>(new ResourcePath() { PathResource = "Prefabs/InventoryButton" }, uiRoot);
