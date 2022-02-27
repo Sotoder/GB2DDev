@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Profile;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -17,9 +18,14 @@ public class MainMenuController : BaseController
         _view = LoadView(placeForUi);
         _shedController = new ShedController(upgradeItems, itemsConfig, _profilePlayer.CurrentCar, _view.transform, inventoryController);
         AddGameObjects(_view.gameObject);
-        _view.Init(StartGame, _shedController.Enter);
+        _view.Init(StartGame, _shedController.Enter, OpenRewardWindow);
     }
-    
+
+    private void OpenRewardWindow()
+    {
+        _profilePlayer.CurrentState.Value = GameState.Rewards;
+    }
+
     private MainMenuView LoadView(Transform placeForUi)
     {
         return ResourceLoader.LoadAndInstantiateView<MainMenuView>(_viewPath, placeForUi);
