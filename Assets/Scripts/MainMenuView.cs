@@ -46,7 +46,7 @@ public class MainMenuView : MonoBehaviour, IView
         {
             _isGameStarted = true;
             _buttonInventory.gameObject.SetActive(false);
-            _startButtonScaleTween = _buttonStart.transform.DOScale(Vector3.one * 20, 1f)
+            _startButtonScaleTween = _buttonStart.transform?.DOScale(Vector3.one * 20, 1f)
                 .OnComplete(() =>
                 {
                     _startGame.Invoke();
@@ -60,6 +60,7 @@ public class MainMenuView : MonoBehaviour, IView
     {
         _buttonStart.onClick.RemoveAllListeners();
         _buttonInventory.onClick.RemoveAllListeners();
+        _startButtonScaleTween = null;
     }
 
     public void Show()

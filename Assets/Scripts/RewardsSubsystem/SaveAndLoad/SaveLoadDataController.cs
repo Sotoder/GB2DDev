@@ -19,21 +19,16 @@ public class SaveLoadDataController: IDisposable
     {
         foreach (var view in _viewsWhithButton)
         {
-            view.SaveButton.onClick.AddListener(SaveButtonPress);
-            view.LoadButton.onClick.AddListener(LoadButtonPress);
+            view.SaveButton.onClick.AddListener(Save);
+            view.LoadButton.onClick.AddListener(Load);
         }
     }
 
-    private void SaveButtonPress()
+    private void Save()
     {
         var dataForSave = _mementoSaver.GetLastMementoForSave();
         if (dataForSave is null) return;
         _repository.Save(dataForSave);
-    }
-
-    private void LoadButtonPress()
-    {
-        _repository.Load();
     }
 
     public void Load()
@@ -45,8 +40,8 @@ public class SaveLoadDataController: IDisposable
     {
         foreach (var view in _viewsWhithButton)
         {
-            view.SaveButton.onClick.RemoveListener(SaveButtonPress);
-            view.LoadButton.onClick.RemoveListener(LoadButtonPress);
+            view.SaveButton.onClick.RemoveListener(Save);
+            view.LoadButton.onClick.RemoveListener(Load);
         }
     }
 }

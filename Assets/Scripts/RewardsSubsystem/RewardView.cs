@@ -10,12 +10,6 @@ public class RewardView : MonoBehaviour, ISavebleRewardView, IViewWithSaveAndLoa
     [SerializeField]
     private string _name;
     [Space]
-    [Header("PlayerPref Settings")]
-    [SerializeField] 
-    private string _lastTimeKey;
-    [SerializeField] 
-    private string _activeSlotKey;
-    [Space]
     [Header("Time settings")]
     [SerializeField]
     public int TimeCooldown = 86400;

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Profile;
+using System;
 using UnityEngine;
 
-internal class RewardMenuController: IDisposable
+public class RewardMenuController: BaseController
 {
     private ProfilePlayer _profilePlayer;
     private Transform _placeForUI;
@@ -13,6 +14,7 @@ internal class RewardMenuController: IDisposable
         _placeForUI = placeForUi;
 
         ConfigureateAndShowRewardWindow();
+        AddController(this);
     }
 
     private void ConfigureateAndShowRewardWindow()
@@ -22,10 +24,12 @@ internal class RewardMenuController: IDisposable
         _rewardsWindow
             .ConfigurateRewardSystem(_profilePlayer)
             .Show();
+        AddGameObjects(_rewardsWindow.gameObject);
+        _rewardsWindow.UserCloseRewardsWindow += CloseRewardsWindow;
     }
 
-    public void Dispose()
+    private void CloseRewardsWindow()
     {
-        _rewardsWindow?.Hide();
+        _profilePlayer.CurrentState.Value = GameState.Start;
     }
 }

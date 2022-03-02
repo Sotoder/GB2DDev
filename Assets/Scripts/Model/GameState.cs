@@ -5,7 +5,8 @@
         None,
         Start,
         Game,
-        Rewards
+        Rewards,
+        Fight
     }
 }
 

@@ -28,14 +28,28 @@ public class GameController : BaseController
 
         _inventoryButton = ResourceLoader.LoadAndInstantiateObject<Button>(new ResourcePath() { PathResource = "Prefabs/InventoryButton" }, uiRoot);
         _inventoryButton.onClick.AddListener(OpenInventory);
+        AddGameObjects(_inventoryButton.gameObject);
 
         var abilityRepository = new AbilityRepository(configs, profilePlayer);
         var abilityView =
             ResourceLoader.LoadAndInstantiateView<AbilitiesView>(
                 new ResourcePath() { PathResource = "Prefabs/AbilitiesView" }, uiRoot);
+        AddGameObjects(abilityView.gameObject);
         var abilitiesController = new AbilitiesController(carController, inventoryController.Model, abilityRepository,
             abilityView);
         AddController(abilitiesController);
+
+        var battleStartController = CreateBattleStartController(uiRoot, profilePlayer);
+        AddController(battleStartController);
+    }
+
+    private BattleStartController CreateBattleStartController(Transform uiRoot, ProfilePlayer profilePlayer)
+    {
+        var battleStartView = ResourceLoader.LoadAndInstantiateView<BattleStartView>(new ResourcePath { PathResource = "Prefabs/BattleStartView" }, uiRoot);
+        AddGameObjects(battleStartView.gameObject);
+        var battleStartController = new BattleStartController(battleStartView, profilePlayer);
+        battleStartView.Init(battleStartController.StartBattle);
+        return battleStartController;
     }
 
     private void OpenInventory()

@@ -12,16 +12,26 @@ public class RewardsWindow : MonoBehaviour, IView
     private RewardsContainerSwitcher _rewardsContainerSwitcher;
     [SerializeField]
     private CurrencyWindow _currencyWindow;
+    [SerializeField]
+    private CustomButton _exitButton;
 
     private RewardController _controller;
     private MementoSaver _mementoSaver;
     private SaveLoadDataController _saveDataController;
+
+    public Action UserCloseRewardsWindow;
 
     private List<IDisposable> _disposables = new List<IDisposable>();
 
     private void ConfigurateCurrencyWindow(CurrencyData currency)
     {
         _currencyWindow.SetProfile(currency);
+        _exitButton.onClick.AddListener(ExitButtonClick);
+    }
+
+    private void ExitButtonClick()
+    {
+        UserCloseRewardsWindow?.Invoke();
     }
 
     public RewardsWindow ConfigurateRewardSystem(ProfilePlayer profilePlayer)
@@ -56,11 +66,14 @@ public class RewardsWindow : MonoBehaviour, IView
 
     public void Hide()
     {
+        GameObject.Destroy(this);
+    }
+    private void OnDestroy()
+    {
+        _exitButton.onClick.RemoveAllListeners();
         foreach (var element in _disposables)
         {
             element.Dispose();
-        }
-
-        GameObject.Destroy(this);
+        };
     }
 }

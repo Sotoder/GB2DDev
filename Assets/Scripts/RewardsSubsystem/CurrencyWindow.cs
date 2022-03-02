@@ -51,4 +51,10 @@ public class CurrencyWindow : MonoBehaviour
             _woodText.text = _currency.Wood.Value.ToString();
     }
 
+    private void OnDestroy()
+    {
+        _currency.Wood.UnSubscriptionOnChange(RefreshText);
+        _currency.Diamond.UnSubscriptionOnChange(RefreshText);
+    }
+
 }

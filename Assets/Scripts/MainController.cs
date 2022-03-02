@@ -30,6 +30,7 @@ public class MainController : BaseController
     private MainMenuController _mainMenuController;
     private GameController _gameController;
     private InventoryController _inventoryController;
+    private FightController _fightController;
     private readonly Transform _placeForUi;
     private readonly ProfilePlayer _profilePlayer;
     private readonly List<ItemConfig> _itemsConfig;
@@ -50,20 +51,25 @@ public class MainController : BaseController
         switch (state)
         {
             case GameState.Start:
-                _inventoryController.SetOnGameSceneFlag(false);
+                _inventoryController?.SetOnGameSceneFlag(false);
                 _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer, _itemsConfig, _upgradeItems, _inventoryController);
                 _gameController?.Dispose();
                 _rewardMenuController?.Dispose();
                 break;
             case GameState.Game:
-                _inventoryController.SetInventoryViewPosition(_placeForUi);
-                _inventoryController.SetOnGameSceneFlag(true);
+                _inventoryController?.SetInventoryViewPosition(_placeForUi); // todo - убрать этот костыль, переделать на формирование новой вьюхи инвентаря для каждого стейта.
+                _inventoryController?.SetOnGameSceneFlag(true);
                 _gameController = new GameController(_profilePlayer, _abilityItems, _inventoryController, _placeForUi);
                 _mainMenuController?.Dispose();
                 break;
             case GameState.Rewards:
+                _inventoryController?.SetInventoryViewPosition(_placeForUi); // todo - убрать этот костыль, переделать на формирование новой вьюхи инвентаря для каждого стейта.
                 _rewardMenuController = new RewardMenuController(_profilePlayer, _placeForUi);
                 _mainMenuController?.Dispose();
+                break;
+            case GameState.Fight:
+                _gameController?.Dispose();
+                _fightController = new FightController(_profilePlayer, _placeForUi);
                 break;
             default:
                 AllClear();

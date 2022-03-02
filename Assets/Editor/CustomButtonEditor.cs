@@ -38,7 +38,7 @@ public class CustomButtonEditor : ButtonEditor
     private void StopTween()
     {
         CustomButton button = (CustomButton)target;
-        button.ActiveTween.Complete(true);
+        button.ActiveTween?.Complete(true);
     }
 
     public override void OnInspectorGUI()
