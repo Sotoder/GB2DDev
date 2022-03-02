@@ -21,7 +21,7 @@ public class FightController: BaseController
         _fightWindowView = ResourceLoader.LoadAndInstantiateView<FightWindowView>(new ResourcePath {PathResource = "Prefabs/Fight Window View"}, uiPosition);
         AddGameObjects(_fightWindowView.gameObject);
 
-        _fightWindowView.Init(ChangeDataWindow, Fight, Run, ChangeCrimeLevel, ChangeFightStateOnGun, ChangeFightStateOnKnife);
+        _fightWindowView.Init(ChangeDataWindow, Fight, Run, ChangeCrimeLevel, ChangeFightStateOnGun, ChangeFightStateOnKnife, Exit);
         _uiListener = new UiListener(_fightWindowView.CountPowerText, _fightWindowView.CountMoneyText, 
                                      _fightWindowView.CountHealthText, _fightWindowView.CrimeLevelText,
                                      _fightWindowView.RunButton);
@@ -29,6 +29,11 @@ public class FightController: BaseController
         _profilePlayer.FightData.Health.Attach(_uiListener);
         _profilePlayer.FightData.Power.Attach(_uiListener);
         _profilePlayer.FightData.CrimeLevel.Attach(_uiListener);
+    }
+
+    private void Exit()
+    {
+        _profilePlayer.CurrentState.Value = Profile.GameState.Game;
     }
 
     private void ChangeDataWindow(int countChangeData, DataType dataType)

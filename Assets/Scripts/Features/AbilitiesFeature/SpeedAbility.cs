@@ -27,6 +27,7 @@ public class SpeedAbility : IAbility
         IsOnCooldown.Value = true;
 
         _rocket = Object.Instantiate(_config.View);
+        _rocket.transform.SetParent(activator.GetViewObject().transform);
         _handler.UpgradeWithModifier(_car);
         var durationTimer = new Timer(_config.duration);
         durationTimer.TimerIsOver += Deactivate;

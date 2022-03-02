@@ -61,6 +61,7 @@ public class MainController : BaseController
                 _inventoryController?.SetOnGameSceneFlag(true);
                 _gameController = new GameController(_profilePlayer, _abilityItems, _inventoryController, _placeForUi);
                 _mainMenuController?.Dispose();
+                _fightController?.Dispose();
                 break;
             case GameState.Rewards:
                 _inventoryController?.SetInventoryViewPosition(_placeForUi); // todo - убрать этот костыль, переделать на формирование новой вьюхи инвентаря для каждого стейта.

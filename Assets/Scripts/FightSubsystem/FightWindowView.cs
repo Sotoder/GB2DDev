@@ -50,6 +50,9 @@ public class FightWindowView : MonoBehaviour, IView
     private Button _fightButton;
 
     [SerializeField]
+    private Button _exitButton;
+
+    [SerializeField]
     public Button RunButton;
 
     [SerializeField]
@@ -60,7 +63,8 @@ public class FightWindowView : MonoBehaviour, IView
 
     public void Init(UnityAction<int, DataType> changeDataWindow, UnityAction fight,
                      UnityAction run, UnityAction<bool, bool> changeCrimeLevel,
-                     UnityAction<bool> changeStateOnGun, UnityAction<bool> changeStateOnKnife)
+                     UnityAction<bool> changeStateOnGun, UnityAction<bool> changeStateOnKnife,
+                     UnityAction exit)
     {
         _addMoneyButton.onClick.AddListener(() => {
             changeDataWindow(1, DataType.Money);
@@ -81,6 +85,7 @@ public class FightWindowView : MonoBehaviour, IView
 
         _fightButton.onClick.AddListener(fight);
         RunButton.onClick.AddListener(run);
+        _exitButton.onClick.AddListener(exit);
     }
 
     private void OnDestroy()
@@ -101,6 +106,7 @@ public class FightWindowView : MonoBehaviour, IView
 
         GunToggle.onValueChanged.RemoveAllListeners();
         KnifeToogle.onValueChanged.RemoveAllListeners();
+        _exitButton.onClick.RemoveAllListeners();
     }
 
     public void Show()
