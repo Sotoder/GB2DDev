@@ -14,6 +14,7 @@ public class GameController : BaseController
     {
         _inventoryController = new InventoryController(itemsConfig, upgradeItems, uiRoot, inventoryModel);
         _inventoryController.SetOnGameSceneFlag(true);
+        AddController(_inventoryController);
 
         var leftMoveDiff = new SubscriptionProperty<float>();
         var rightMoveDiff = new SubscriptionProperty<float>();
