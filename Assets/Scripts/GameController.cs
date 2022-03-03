@@ -8,10 +8,12 @@ using UnityEngine.UI;
 public class GameController : BaseController
 {
     private Button _inventoryButton;
-    private IInventoryController _inventoryController;
-    public GameController(ProfilePlayer profilePlayer, IReadOnlyList<AbilityItemConfig> configs, InventoryController inventoryController, Transform uiRoot)
+    private InventoryController _inventoryController;
+    public GameController(ProfilePlayer profilePlayer, IReadOnlyList<AbilityItemConfig> configs,
+                          List<ItemConfig> itemsConfig, IReadOnlyList<UpgradeItemConfig> upgradeItems, InventoryModel inventoryModel, Transform uiRoot)
     {
-        _inventoryController = inventoryController;
+        _inventoryController = new InventoryController(itemsConfig, upgradeItems, uiRoot, inventoryModel);
+        _inventoryController.SetOnGameSceneFlag(true);
 
         var leftMoveDiff = new SubscriptionProperty<float>();
         var rightMoveDiff = new SubscriptionProperty<float>();
@@ -35,7 +37,7 @@ public class GameController : BaseController
             ResourceLoader.LoadAndInstantiateView<AbilitiesView>(
                 new ResourcePath() { PathResource = "Prefabs/AbilitiesView" }, uiRoot);
         AddGameObjects(abilityView.gameObject);
-        var abilitiesController = new AbilitiesController(carController, inventoryController.Model, abilityRepository,
+        var abilitiesController = new AbilitiesController(carController, _inventoryController.Model, abilityRepository,
             abilityView);
         AddController(abilitiesController);
 
@@ -60,6 +62,7 @@ public class GameController : BaseController
     public new void OnDispose()
     {
         _inventoryButton.onClick.RemoveAllListeners();
+        _inventoryController.Dispose();
         base.OnDispose();
     }
 }

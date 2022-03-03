@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Tools;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,11 +15,12 @@ public class InventoryController : BaseController, IInventoryController
     public UnityAction CloseAndSaveInventory;
     public IInventoryModel Model => _inventoryModel;
 
-    public InventoryController(List<ItemConfig> itemConfigs, IReadOnlyList<UpgradeItemConfig> upgradeItems, Transform placeForUi)
+    public InventoryController(List<ItemConfig> itemConfigs, IReadOnlyList<UpgradeItemConfig> upgradeItems, Transform placeForUi, InventoryModel inventoryModel)
     {
-        _inventoryModel = new InventoryModel();
+        _inventoryModel = inventoryModel;
         _inventoryView = ResourceLoader.LoadAndInstantiateView<InventoryView>(_viewPath, placeForUi);
-        _inventoryView.Init(upgradeItems);
+        AddGameObjects(_inventoryView.gameObject);
+        _inventoryView.Init(upgradeItems, inventoryModel);
         _inventoryView.UpgradeSaved += _inventoryModel.UpdateUpgradesList;
         _inventoryView.UpgradeSaved += InvetoryClosed;
 
@@ -30,7 +32,10 @@ public class InventoryController : BaseController, IInventoryController
     private void EquipBaseItems()
     {
         foreach (var item in _itemsRepository.Content.Values)
-            _inventoryModel.EquipBaseItem(item);
+            if (_inventoryModel.GetEquippedItems().FirstOrDefault(x => x.Id == item.Id) == null)
+            {
+                _inventoryModel.EquipBaseItem(item);
+            }
     }
 
     private void InvetoryClosed(List<UpgradeItemConfig> upgradesList)

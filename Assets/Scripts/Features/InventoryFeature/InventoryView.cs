@@ -16,6 +16,7 @@ public class InventoryView : MonoBehaviour, IInventoryView
     public UnityAction<List<UpgradeItemConfig>> UpgradeSaved { get; set; }
 
     private IReadOnlyList<UpgradeItemConfig> _upgradeItems;
+    private InventoryModel _inventoryModel;
     private List<UpgradeItemConfig> _selectedUpgradeItems = new List<UpgradeItemConfig>();
     private bool _isOnGameScene;
     private Tween _scaleTween;
@@ -33,9 +34,10 @@ public class InventoryView : MonoBehaviour, IInventoryView
             Debug.Log($"Id item: {item.Id}. Title item: {item.Info.Title}");
     }
 
-    public void Init(IReadOnlyList<UpgradeItemConfig> upgradeItems)
+    public void Init(IReadOnlyList<UpgradeItemConfig> upgradeItems, InventoryModel inventoryModel)
     {
         _upgradeItems = upgradeItems;
+        _inventoryModel = inventoryModel;
 
         List<string> transmissionOptions = new List<string>();
         List<string> tireOptions = new List<string>();
@@ -65,6 +67,41 @@ public class InventoryView : MonoBehaviour, IInventoryView
 
     public void Show()
     {
+        foreach (var upgrade in _inventoryModel.GetUpgrades())
+        {
+            switch (upgrade.Id)
+            {
+                case 0:
+                    for(int i = 0; i < _transmissionDropDown.options.Count; i++)
+                    {
+                        if (_transmissionDropDown.options[i].text.Equals(upgrade.name))
+                        {
+                            _transmissionDropDown.value = i;
+                        }
+                    }                   
+                    break;
+                case 1:
+                    for (int i = 0; i < _tiresDropDown.options.Count; i++)
+                    {
+                        if (_tiresDropDown.options[i].text.Equals(upgrade.name))
+                        {
+                            _tiresDropDown.value = i;
+                        }
+                    }
+                    break;
+                case 10:
+                    for (int i = 0; i < _windowDropDown.options.Count; i++)
+                    {
+                        if (_windowDropDown.options[i].text.Equals(upgrade.name))
+                        {
+                            _windowDropDown.value = i;
+                        }
+                    }
+                    break;
+            }
+        }
+        
+        
         if (_isOnGameScene)
         {
             SetDropdownInteractable(false);

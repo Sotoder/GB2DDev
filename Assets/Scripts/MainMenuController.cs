@@ -12,11 +12,11 @@ public class MainMenuController : BaseController
     private readonly ShedController _shedController;
 
     public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer, List<ItemConfig> itemsConfig, 
-                              IReadOnlyList<UpgradeItemConfig> upgradeItems, InventoryController inventoryController)
+                              IReadOnlyList<UpgradeItemConfig> upgradeItems, InventoryModel inventoryModel)
     {
         _profilePlayer = profilePlayer;
         _view = LoadView(placeForUi);
-        _shedController = new ShedController(upgradeItems, itemsConfig, _profilePlayer.CurrentCar, _view.transform, inventoryController);
+        _shedController = new ShedController(upgradeItems, itemsConfig, _profilePlayer.CurrentCar, _view.transform, inventoryModel);
         AddGameObjects(_view.gameObject);
         _view.Init(StartGame, _shedController.Enter, OpenRewardWindow);
     }
