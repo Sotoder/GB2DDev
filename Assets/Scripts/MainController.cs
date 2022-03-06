@@ -23,18 +23,19 @@ public class MainController : BaseController
         OnChangeGameState(_profilePlayer.CurrentState.Value);
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
 
-        _inventoryController = new InventoryController(_itemsConfig, _upgradeItems, _placeForUi);
-        AddController(_inventoryController);
+        _inventoryModel = new InventoryModel();
     }
 
     private MainMenuController _mainMenuController;
     private GameController _gameController;
-    private InventoryController _inventoryController;
+    private InventoryModel _inventoryModel;
+    private FightController _fightController;
     private readonly Transform _placeForUi;
     private readonly ProfilePlayer _profilePlayer;
     private readonly List<ItemConfig> _itemsConfig;
     private readonly IReadOnlyList<UpgradeItemConfig> _upgradeItems;
     private readonly IReadOnlyList<AbilityItemConfig> _abilityItems;
+    private RewardMenuController _rewardMenuController;
 
     protected override void OnDispose()
     {
@@ -49,15 +50,22 @@ public class MainController : BaseController
         switch (state)
         {
             case GameState.Start:
-                _inventoryController.SetOnGameSceneFlag(false);
-                _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer, _itemsConfig, _upgradeItems, _inventoryController);
+                _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer, _itemsConfig, _upgradeItems, _inventoryModel);
                 _gameController?.Dispose();
+                _rewardMenuController?.Dispose();
                 break;
             case GameState.Game:
-                _inventoryController.SetInventoryViewPosition(_placeForUi);
-                _inventoryController.SetOnGameSceneFlag(true);
-                _gameController = new GameController(_profilePlayer, _abilityItems, _inventoryController, _placeForUi);
+                _gameController = new GameController(_profilePlayer, _abilityItems, _itemsConfig, _upgradeItems, _inventoryModel, _placeForUi);
                 _mainMenuController?.Dispose();
+                _fightController?.Dispose();
+                break;
+            case GameState.Rewards:
+                _rewardMenuController = new RewardMenuController(_profilePlayer, _placeForUi);
+                _mainMenuController?.Dispose();
+                break;
+            case GameState.Fight:
+                _gameController?.Dispose();
+                _fightController = new FightController(_profilePlayer, _placeForUi);
                 break;
             default:
                 AllClear();
@@ -67,8 +75,9 @@ public class MainController : BaseController
 
     private void AllClear()
     {
-        _inventoryController?.Dispose();
         _mainMenuController?.Dispose();
         _gameController?.Dispose();
+        _rewardMenuController?.Dispose();
+        _fightController?.Dispose();
     }
 }

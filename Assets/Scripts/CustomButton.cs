@@ -37,18 +37,23 @@ public class CustomButton : Button
                 break;
             case TransitionType.Rotation:
                 _activeTween?.Complete(true);
-                _activeTween = (transform as RectTransform).DOShakeRotation(_duration, Vector3.forward * _power)
+                _activeTween = (transform as RectTransform)?.DOShakeRotation(_duration, Vector3.forward * _power)
                     .SetEase(_easing)
                     .OnComplete(() => _activeTween = null);
                 break;
             case TransitionType.Scale:
                 _activeTween?.Complete(true);
-                _activeTween = (transform as RectTransform).DOShakeScale(_duration, _power, 4)
+                _activeTween = (transform as RectTransform)?.DOShakeScale(_duration, _power, 4)
                     .SetEase(_easing)
                     .OnComplete(() => _activeTween = null);
 
                 break;
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        _activeTween = null;
     }
 }
 
@@ -58,3 +63,4 @@ public enum TransitionType
     Rotation,
     Scale
 }
+

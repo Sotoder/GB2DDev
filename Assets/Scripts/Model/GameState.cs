@@ -4,7 +4,9 @@
     {
         None,
         Start,
-        Game
+        Game,
+        Rewards,
+        Fight
     }
 }
 

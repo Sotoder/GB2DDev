@@ -8,14 +8,15 @@ public class ShedController : BaseController, IShedController
     private readonly InventoryController _inventoryController;
     private readonly IInventoryModel _model;
 
-    public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> items, Car car, Transform placeForUI, InventoryController inventoryController)
+    public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> items, Car car, Transform placeForUI, InventoryModel inventoryModel)
     {
         _car = car;
         _upgradeRepository = new UpgradeHandlerRepository(upgradeItems);
         AddController(_upgradeRepository);
 
-        _inventoryController = inventoryController;
-        _inventoryController.SetInventoryViewPosition(placeForUI);
+        _inventoryController = new InventoryController(items, upgradeItems, placeForUI, inventoryModel);
+        _inventoryController?.SetOnGameSceneFlag(false);
+        AddController(_inventoryController);
         _model = _inventoryController.Model;
         _inventoryController.CloseAndSaveInventory += Exit;
     }
@@ -49,6 +50,7 @@ public class ShedController : BaseController, IShedController
     public new void OnDispose()
     {
         _inventoryController.CloseAndSaveInventory -= Exit;
+        _inventoryController.Dispose();
         base.OnDispose();
     }
 }
