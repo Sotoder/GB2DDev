@@ -52,8 +52,11 @@ public class GameController : BaseController
 
     private T LoadView<T>(AssetReferenceGameObject viewRef, Transform uiRoot) where T: Component, IView
     {
+        var timeStart = DateTime.Now;
         var result = ResourceLoader.AdressableLoadAndInstantiateView<T>(viewRef, uiRoot);
         _viewsOperationHandle.Add(result.handle);
+        var timeEnd = DateTime.Now;
+        Debug.Log($"COMPLETE!!! Time spend: {(timeEnd - timeStart).TotalSeconds}");
         return result.view;
     }
 
