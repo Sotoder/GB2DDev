@@ -37,7 +37,7 @@ public class TapeBackgroundController : BaseController
         
         if (_pathOperationHandle.IsValid())
         {
-            Addressables.Release(_pathOperationHandle);
+            Addressables.ReleaseInstance(_pathOperationHandle);
         }
 
         base.OnDispose();

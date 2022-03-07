@@ -62,9 +62,9 @@ public class MainController : BaseController
     {
         AllClear();
 
-        Addressables.Release(_upgradeItemOperationHandle);
-        Addressables.Release(_itemOperationHandle);
-        Addressables.Release(_abilityItemOperationHandle);
+        Addressables.ReleaseInstance(_upgradeItemOperationHandle);
+        Addressables.ReleaseInstance(_itemOperationHandle);
+        Addressables.ReleaseInstance(_abilityItemOperationHandle);
 
     _profilePlayer.CurrentState.UnSubscriptionOnChange(OnChangeGameState);
         base.OnDispose();

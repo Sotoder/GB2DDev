@@ -77,7 +77,7 @@ public class GameController : BaseController
         {
             if (handle.IsValid())
             {
-                Addressables.Release(handle);
+                Addressables.ReleaseInstance(handle);
             }
         }
         _inventoryButton?.onClick.RemoveAllListeners();

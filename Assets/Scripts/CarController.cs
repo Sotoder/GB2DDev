@@ -114,7 +114,7 @@ public class CarController : BaseController, IAbilityActivator
     {
         if (_carOperationHandle.IsValid())
         {
-            Addressables.Release(_carOperationHandle);
+            Addressables.ReleaseInstance(_carOperationHandle);
         }
     }
 }

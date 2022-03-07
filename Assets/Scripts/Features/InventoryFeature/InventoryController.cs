@@ -80,7 +80,7 @@ public class InventoryController : BaseController, IInventoryController
     {
         if (_inventoryViewHandle.IsValid())
         {
-            Addressables.Release(_inventoryViewHandle);
+            Addressables.ReleaseInstance(_inventoryViewHandle);
         }
         _inventoryView.UpgradeSaved -= _inventoryModel.UpdateUpgradesList;
         base.OnDispose();

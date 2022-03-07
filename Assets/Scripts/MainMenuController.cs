@@ -47,7 +47,7 @@ public class MainMenuController : BaseController
     {
         if (_mainMenuViewHandle.IsValid())
         {
-            Addressables.Release(_mainMenuViewHandle);
+            Addressables.ReleaseInstance(_mainMenuViewHandle);
         }
     }
 }
