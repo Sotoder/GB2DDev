@@ -30,7 +30,7 @@ public class AbilitiesController : BaseController
     private void SetInteractableStatusForAbilityView(bool isOnCooldown, IAbility ability)
     {
         var targetAbility = _abilityCollectionView.AbilityViews.FirstOrDefault(abilityView => abilityView.Item.Id == ability.Config.Item.Id);
-        targetAbility.SetInteractableState(isOnCooldown);
+        targetAbility?.SetInteractableState(isOnCooldown);
     }
 
     private void OnAbilityUseRequested(object sender, IItem e)

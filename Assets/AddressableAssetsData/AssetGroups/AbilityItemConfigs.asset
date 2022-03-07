@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: AbilityItemConfigs
+  m_EditorClassIdentifier: 
+  m_GroupName: AbilityItemConfigs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: da61eeda1048e5740be49481f116588d
+  m_SerializeEntries:
+  - m_GUID: 09a823ea2315b9a4dbdad15bed5f3fed
+    m_Address: Assets/Info Items/Abilities/Bomb.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c8d3e74aaf2447344bd5a345943e75eb
+    m_Address: Assets/Info Items/Abilities/Gun.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 55d535ce39b1bad42a030076a4a729d4
+    m_Address: Assets/Info Items/Abilities/JumpingSprings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9295cc52fc33245488cdb9dba0198a05
+    m_Address: Assets/Info Items/Abilities/Rocket.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 13176985f486fa842af05e6bdec4bda4
+    m_Address: Assets/Info Items/Abilities/SpeedBooster.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 49af1f9f7763d5749a2fe033f57fba70
+    m_Address: Assets/Info Items/Abilities/Springs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6e81bdde5dd5ce041b66cf2bb057e468, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 373dedb049b11a546919fea5f9da5980, type: 2}
+    - {fileID: 11400000, guid: 5afa8a83c19bd954f8892b59aec6b3c9, type: 2}

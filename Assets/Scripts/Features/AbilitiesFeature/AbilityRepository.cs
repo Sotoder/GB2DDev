@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tools;
-using UnityEngine;
 using UnityEngine.Events;
 
 public class AbilityRepository : BaseController, IAbilityRepository<int, IAbility>
@@ -11,11 +10,14 @@ public class AbilityRepository : BaseController, IAbilityRepository<int, IAbilit
 
     private Dictionary<int, IAbility> _abilitiesMap = new Dictionary<int, IAbility>();
     private ProfilePlayer _profilePlayer;
+    private IReadOnlyList<AbilityItemConfig> _abilities;
 
     public AbilityRepository(IReadOnlyList<AbilityItemConfig> abilities, ProfilePlayer profilePlayer)
     {
         _profilePlayer = profilePlayer;
-        foreach (var config in abilities)
+        _abilities = abilities;
+
+        foreach (var config in _abilities)
         {
             _abilitiesMap[config.Id] = CreateAbility(config);
             _abilitiesMap[config.Id].IsOnCooldown.SubscribeOnChange(NotifyAboutCooldownState);
@@ -41,6 +43,15 @@ public class AbilityRepository : BaseController, IAbilityRepository<int, IAbilit
                 return new JumpAbility(config);
             default:
                 throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    protected override void OnDispose()
+    {
+        base.OnDispose();
+        foreach (var config in _abilities)
+        {
+            _abilitiesMap[config.Id].IsOnCooldown.UnSubscriptionOnChange(NotifyAboutCooldownState);
         }
     }
 }

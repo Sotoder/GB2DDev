@@ -421,11 +421,9 @@ MonoBehaviour:
   _placeForUi: {fileID: 1903552}
   _carBaseSpeed: 0.3
   _ads: {fileID: 1980575211}
-  _upgradeSource: {fileID: 11400000, guid: 4b0ac3781b2cd5f40bb67ec9c9e1cd6b, type: 2}
-  _abilityItems:
-  - {fileID: 11400000, guid: 09a823ea2315b9a4dbdad15bed5f3fed, type: 2}
-  - {fileID: 11400000, guid: 9295cc52fc33245488cdb9dba0198a05, type: 2}
-  - {fileID: 11400000, guid: 55d535ce39b1bad42a030076a4a729d4, type: 2}
+  _appDataSourses: {fileID: 11400000, guid: d0521468d7754634986e08a6d7e53d9b, type: 2}
+  _prefabsAssetReferences: {fileID: 11400000, guid: 935d2bacef18ea84f96d7a072794e865,
+    type: 2}
 --- !u!114 &1980575211
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,14 +1,17 @@
 ﻿using Tools;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class TapeBackgroundController : BaseController
 {
     public TapeBackgroundController(IReadOnlySubscriptionProperty<float> leftMove, 
         IReadOnlySubscriptionProperty<float> rightMove,
-        Car currentCar)
+        Car currentCar,
+        AssetReferenceGameObject pathViewReference)
     {
         _currentCar = currentCar;
-        _view = LoadView();
+        _view = LoadView(pathViewReference);
         _diff = new SubscriptionProperty<float>();
         
         _leftMove = leftMove;
@@ -20,8 +23,8 @@ public class TapeBackgroundController : BaseController
         _rightMove.SubscribeOnChange(Move);
     }
     
-    private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/background"};
     private TapeBackgroundView _view;
+    private AsyncOperationHandle<GameObject> _pathOperationHandle;
     private readonly SubscriptionProperty<float> _diff;
     private readonly IReadOnlySubscriptionProperty<float> _leftMove;
     private readonly IReadOnlySubscriptionProperty<float> _rightMove;
@@ -32,15 +35,24 @@ public class TapeBackgroundController : BaseController
         _leftMove.UnSubscriptionOnChange(Move);
         _rightMove.UnSubscriptionOnChange(Move);
         
+        if (_pathOperationHandle.IsValid())
+        {
+            Addressables.Release(_pathOperationHandle);
+        }
+
         base.OnDispose();
     }
 
-    private TapeBackgroundView LoadView()
+    private TapeBackgroundView LoadView(AssetReferenceGameObject pathViewReference)
     {
-        var objView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath));
-        AddGameObjects(objView);
-        
-        return objView.GetComponent<TapeBackgroundView>();
+        var handle = Addressables.LoadAssetAsync<GameObject>(pathViewReference);
+        var result = handle.WaitForCompletion();
+        var go = GameObject.Instantiate(result);
+
+        _pathOperationHandle = handle;
+        AddGameObjects(go);
+
+        return go.GetComponent<TapeBackgroundView>();
     }
 
     private void Move(float value)

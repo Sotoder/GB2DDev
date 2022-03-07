@@ -197,7 +197,7 @@ public class FightController: BaseController
         }
     }
 
-    private new void OnDispose()
+    protected override void OnDispose()
     {
         _profilePlayer.FightData.Health.Detach(_enemy);
         _profilePlayer.FightData.Power.Detach(_enemy);
