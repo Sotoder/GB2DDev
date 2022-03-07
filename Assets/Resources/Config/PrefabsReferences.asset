@@ -22,3 +22,23 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  _battleViewReference:
+    m_AssetGUID: 9d6da479e127c5940b6eda1e51981395
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _carViewReference:
+    m_AssetGUID: 33b765fecc0a5e84d8c2a5aee1c58341
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _pathViewReference:
+    m_AssetGUID: fc5d978739b1ef048bfa075070aeba34
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _inventoryViewReference:
+    m_AssetGUID: 5273275afe469a74fb53ba3a7cb1cfd1
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

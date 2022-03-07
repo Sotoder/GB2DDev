@@ -21,6 +21,26 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/mainMenu.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5606d427c746d424da45beaee1204bf0
+    m_Address: Assets/Prefabs/AbilitiesView.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fc5d978739b1ef048bfa075070aeba34
+    m_Address: Assets/Prefabs/background.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9d6da479e127c5940b6eda1e51981395
+    m_Address: Assets/Prefabs/BattleStartView.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 33b765fecc0a5e84d8c2a5aee1c58341
+    m_Address: Assets/Prefabs/Car.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5273275afe469a74fb53ba3a7cb1cfd1
+    m_Address: Assets/Prefabs/Inventory.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6e81bdde5dd5ce041b66cf2bb057e468, type: 2}
   m_SchemaSet:

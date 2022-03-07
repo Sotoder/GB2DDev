@@ -6,4 +6,5 @@ public interface IGameReferences
     AssetReferenceGameObject BattleViewReference { get; }
     AssetReferenceGameObject CarViewReference { get; }
     AssetReferenceGameObject PathViewReference { get; }
+    AssetReferenceGameObject InventoryViewReference { get; }
 }

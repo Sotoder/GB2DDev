@@ -17,7 +17,7 @@ public class GameController : BaseController
                           List<ItemConfig> itemsConfig, IReadOnlyList<UpgradeItemConfig> upgradeItems, InventoryModel inventoryModel, Transform uiRoot, 
                           IGameReferences prefabsAssetReferences)
     {
-        _inventoryController = new InventoryController(itemsConfig, upgradeItems, uiRoot, inventoryModel);
+        _inventoryController = new InventoryController(itemsConfig, upgradeItems, uiRoot, inventoryModel, prefabsAssetReferences.InventoryViewReference);
         _inventoryController.SetOnGameSceneFlag(true);
         AddController(_inventoryController);
 

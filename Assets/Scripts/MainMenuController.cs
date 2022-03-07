@@ -17,7 +17,7 @@ public class MainMenuController : BaseController
     {
         _profilePlayer = profilePlayer;
         _view = LoadView(prefabsAssetReferences.MainMenuReference, placeForUi);
-        _shedController = new ShedController(upgradeItems, itemsConfig, _profilePlayer.CurrentCar, _view.transform, inventoryModel);
+        _shedController = new ShedController(upgradeItems, itemsConfig, _profilePlayer.CurrentCar, _view.transform, inventoryModel, prefabsAssetReferences.InventoryViewReference);
         AddGameObjects(_view.gameObject);
         _view.Init(StartGame, _shedController.Enter, OpenRewardWindow);
     }
