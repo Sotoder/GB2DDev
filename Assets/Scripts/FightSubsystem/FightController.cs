@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
+using Unity.Notifications.Android;
+using System;
 
 public class FightController: BaseController
 {
+    private const string AndroidNotificationId = "android_notification_id";
+
     private FightWindowView _fightWindowView;
     private readonly ProfilePlayer _profilePlayer;
 
@@ -181,9 +185,10 @@ public class FightController: BaseController
 
     private void Fight()
     {
+        var result = "";
         if (_profilePlayer.FightData.Power.CountPower >= _enemy.Power)
         {
-            Debug.Log("Win");
+            result = "Win";
             _profilePlayer.FightData.WinsCount++;
             if (_profilePlayer.FightData.WinsCount % FightData.WIN_COUN_TO_UP_CRIME == 0)
             {
@@ -192,9 +197,34 @@ public class FightController: BaseController
         }
         else
         {
-            Debug.Log("Lose");
+            result = "Lose";
             ChangeCrimeLevel(false, false);
         }
+
+        var androidSettingsChannel = new AndroidNotificationChannel
+        {
+            Id = AndroidNotificationId,
+            Name = "Notifier",
+            Description = "Description Notifier",
+            Importance = Importance.High,
+            CanBypassDnd = true,
+            EnableLights = true,
+            CanShowBadge = true,
+            EnableVibration = true,
+            LockScreenVisibility = LockScreenVisibility.Public
+        };
+
+        AndroidNotificationCenter.RegisterNotificationChannel(androidSettingsChannel);
+
+        var androidNotification = new AndroidNotification
+        {
+            Title = "Battle end",
+            Text = result,
+            Color = Color.black,
+            RepeatInterval = TimeSpan.FromDays(1)
+        };
+
+        var sendId = AndroidNotificationCenter.SendNotification(androidNotification, AndroidNotificationId);
     }
 
     protected override void OnDispose()

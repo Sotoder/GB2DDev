@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 
 namespace Features.AbilitiesFeature
 {
@@ -36,6 +40,20 @@ namespace Features.AbilitiesFeature
                     view.Init(abilityItem);
                     view.OnClick += OnRequested;
                     view.SetText(abilityItem.Info.Title);
+                    var strEvent = view.gameObject.GetComponent<LocalizeStringEvent>();
+                    strEvent.StringReference.TableReference = "UI";
+                    switch (abilityItem.Id)
+                    {
+                        case 10:
+                            strEvent.StringReference.TableEntryReference = "gun_ability";
+                            break;
+                        case 11:
+                            strEvent.StringReference.TableEntryReference = "speed_ability";
+                            break;
+                        case 12:
+                            strEvent.StringReference.TableEntryReference = "jump_ability";
+                            break;
+                    }
                     _currentViews.Add(view);
                 }
             }
