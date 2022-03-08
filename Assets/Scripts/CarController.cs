@@ -1,11 +1,13 @@
 ﻿using DG.Tweening;
 using Tools;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class CarController : BaseController, IAbilityActivator
 { 
-    private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/Car"};
     private readonly CarView _carView;
+    private AsyncOperationHandle<GameObject> _carOperationHandle;
 
     private SubscriptionProperty<float> _leftMoveDiff;
     private SubscriptionProperty<float> _rightMoveDiff;
@@ -15,9 +17,9 @@ public class CarController : BaseController, IAbilityActivator
     private Tween _backWheelTween = null;
     private bool _isMovingForward = false;
 
-    public CarController(SubscriptionProperty<float> leftMoveDiff, SubscriptionProperty<float> rightMoveDiff, SubscriptionProperty<bool> isStay)
+    public CarController(SubscriptionProperty<float> leftMoveDiff, SubscriptionProperty<float> rightMoveDiff, SubscriptionProperty<bool> isStay, AssetReferenceGameObject carViewReference)
     {
-        _carView = LoadView();
+        _carView = LoadView(carViewReference);
         _isStay = isStay;
         _leftMoveDiff = leftMoveDiff;
         _rightMoveDiff = rightMoveDiff;
@@ -91,17 +93,29 @@ public class CarController : BaseController, IAbilityActivator
         return tween;  
     }
 
-    private CarView LoadView()
+    private CarView LoadView(AssetReferenceGameObject carViewReference)
     {
-        var objView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath));
-        AddGameObjects(objView);
-        
-        return objView.GetComponent<CarView>();
+        var handle = Addressables.LoadAssetAsync<GameObject>(carViewReference);
+        var result = handle.WaitForCompletion();
+        var go = GameObject.Instantiate(result);
+
+        _carOperationHandle = handle;
+        AddGameObjects(go);
+
+        return go.GetComponent<CarView>();
     }
 
     public GameObject GetViewObject()
     {
         return _carView.gameObject;
+    }
+
+    protected override void OnDispose()
+    {
+        if (_carOperationHandle.IsValid())
+        {
+            Addressables.ReleaseInstance(_carOperationHandle);
+        }
     }
 }
 

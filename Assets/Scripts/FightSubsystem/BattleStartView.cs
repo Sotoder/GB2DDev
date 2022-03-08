@@ -22,5 +22,10 @@ public class BattleStartView: MonoBehaviour, IView
     {
         gameObject.SetActive(false);
     }
+
+    private void OnDestroy()
+    {
+        _startFightButton.onClick.RemoveAllListeners();
+    }
 }
 

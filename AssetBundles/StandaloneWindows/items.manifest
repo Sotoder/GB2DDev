@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 2179549714
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bad8266e4dc9c074d775cf1b83ec680c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d70b00cb4516b303d472ac5d9e98726b
+HashAppended: 0
+ClassTypes:
+- Class: 114
+  Script: {fileID: 11500000, guid: 3885464851c97db408f275d635ae1eca, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: febc8d8cf076e9541a8fe529559269b5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e1e3240f3e02b9846a3534e986860192, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Info Items/Items/SpeedTransimision.asset
+- Assets/Info Items/Items/SpeedupTire.asset
+- Assets/Info Items/Items/Tire.asset
+- Assets/Info Items/Items/Transimision.asset
+- Assets/Info Items/Items/UpgradeItemConfigDataSource.asset
+- Assets/Info Items/Items/BigTire.asset
+- Assets/Info Items/Items/Window.asset
+Dependencies: []

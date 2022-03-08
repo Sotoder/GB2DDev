@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Tools;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class InventoryController : BaseController, IInventoryController
 {
@@ -11,14 +13,16 @@ public class InventoryController : BaseController, IInventoryController
     private readonly IInventoryModel _inventoryModel;
     private readonly IInventoryView _inventoryView;
     private readonly IRepository<int, IItem> _itemsRepository;
+    private AsyncOperationHandle<GameObject> _inventoryViewHandle;
 
     public UnityAction CloseAndSaveInventory;
     public IInventoryModel Model => _inventoryModel;
 
-    public InventoryController(List<ItemConfig> itemConfigs, IReadOnlyList<UpgradeItemConfig> upgradeItems, Transform placeForUi, InventoryModel inventoryModel)
+    public InventoryController(List<ItemConfig> itemConfigs, IReadOnlyList<UpgradeItemConfig> upgradeItems, Transform placeForUi,
+        InventoryModel inventoryModel, AssetReferenceGameObject inventoryViewReference)
     {
         _inventoryModel = inventoryModel;
-        _inventoryView = ResourceLoader.LoadAndInstantiateView<InventoryView>(_viewPath, placeForUi);
+        _inventoryView = LoadView(inventoryViewReference, placeForUi);
         AddGameObjects(_inventoryView.gameObject);
         _inventoryView.Init(upgradeItems, inventoryModel);
         _inventoryView.UpgradeSaved += _inventoryModel.UpdateUpgradesList;
@@ -27,6 +31,13 @@ public class InventoryController : BaseController, IInventoryController
         _itemsRepository = new ItemsRepository(itemConfigs);
 
         EquipBaseItems();
+    }
+
+    private InventoryView LoadView(AssetReferenceGameObject inventoryViewReference, Transform placeForUi)
+    {
+        var result = ResourceLoader.AdressableLoadAndInstantiateView<InventoryView>(inventoryViewReference, placeForUi);
+        _inventoryViewHandle = result.handle;
+        return result.view;
     }
 
     private void EquipBaseItems()
@@ -67,6 +78,10 @@ public class InventoryController : BaseController, IInventoryController
 
     public new void OnDispose()
     {
+        if (_inventoryViewHandle.IsValid())
+        {
+            Addressables.ReleaseInstance(_inventoryViewHandle);
+        }
         _inventoryView.UpgradeSaved -= _inventoryModel.UpdateUpgradesList;
         base.OnDispose();
     }

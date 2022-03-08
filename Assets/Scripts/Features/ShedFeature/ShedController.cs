@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class ShedController : BaseController, IShedController
 {
@@ -8,13 +9,14 @@ public class ShedController : BaseController, IShedController
     private readonly InventoryController _inventoryController;
     private readonly IInventoryModel _model;
 
-    public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> items, Car car, Transform placeForUI, InventoryModel inventoryModel)
+    public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> items, Car car, Transform placeForUI, 
+        InventoryModel inventoryModel, AssetReferenceGameObject inventoryViewReference)
     {
         _car = car;
         _upgradeRepository = new UpgradeHandlerRepository(upgradeItems);
         AddController(_upgradeRepository);
 
-        _inventoryController = new InventoryController(items, upgradeItems, placeForUI, inventoryModel);
+        _inventoryController = new InventoryController(items, upgradeItems, placeForUI, inventoryModel, inventoryViewReference);
         _inventoryController?.SetOnGameSceneFlag(false);
         AddController(_inventoryController);
         _model = _inventoryController.Model;

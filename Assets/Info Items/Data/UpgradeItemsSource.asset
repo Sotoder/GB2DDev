@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: febc8d8cf076e9541a8fe529559269b5, type: 3}
-  m_Name: UpgradeItemConfigDataSource
+  m_Script: {fileID: 11500000, guid: 30c977783fbf2964b94604637763c499, type: 3}
+  m_Name: UpgradeItemsSource
   m_EditorClassIdentifier: 
-  _itemConfigs:
+  _content:
   - {fileID: 11400000, guid: a2107d7ac8df326479abeadd220230d8, type: 2}
   - {fileID: 11400000, guid: 2c3e5910a634be143b385edced39d640, type: 2}
   - {fileID: 11400000, guid: bfa657704defebc4698f9e77b67f67c4, type: 2}
