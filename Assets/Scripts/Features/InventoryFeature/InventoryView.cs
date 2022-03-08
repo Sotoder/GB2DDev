@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class InventoryView : MonoBehaviour, IInventoryView
@@ -22,10 +23,12 @@ public class InventoryView : MonoBehaviour, IInventoryView
     private Tween _scaleTween;
     private Tween _rotationTween;
     private Sequence _seq;
+    private LocalizeStringEvent _stringEvent;
 
     private void Start()
     {
         this.transform.localScale = Vector3.zero;
+        _stringEvent = _saveButtonText.GetComponent<LocalizeStringEvent>();
     }
 
     public void Display(IReadOnlyList<IItem> items)
@@ -105,11 +108,11 @@ public class InventoryView : MonoBehaviour, IInventoryView
         if (_isOnGameScene)
         {
             SetDropdownInteractable(false);
-            _saveButtonText.text = "Exit";
+            _stringEvent.StringReference.TableEntryReference = "inventory_exit_btn";
         } else
         {
             SetDropdownInteractable(true);
-            _saveButtonText.text = "Save & Exit";
+            _stringEvent.StringReference.TableEntryReference = "garage_exit_btn";
         }
 
         _scaleTween?.Complete(true);
