@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using JoostenProductions;
+﻿using JoostenProductions;
 using Tools;
 using UnityEngine;
 
-public class TouchInputView : BaseInputView
+public class InputTouchView : BaseInputView
 {
-    private float _speed = 0.0f;
+    //private float _speed = 0.0f;
     private float _tapAcceleration = 0.1f;
     private float _slowUpPerSecond = 0.5f;
 
     public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
     {
-        base.Init(leftMove, rightMove, speed);
+        base.Init(leftMove, rightMove, 0.0f);
         UpdateManager.SubscribeToUpdate(OnUpdate);
     }
 
